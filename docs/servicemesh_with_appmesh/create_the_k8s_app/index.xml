@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Create the k8s app on Amazon Chatbot Workshop</title>
+    <link>/servicemesh_with_appmesh/create_the_k8s_app/</link>
+    <description>Recent content in Create the k8s app on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Nov 2018 16:32:30 +0900</lastBuildDate>
+
+	<atom:link href="/servicemesh_with_appmesh/create_the_k8s_app/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Prerequisites</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/prereqs/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/prereqs/</guid>
+      <description>At an AWS Event If you are running this chapter at an AWS Event, the prerequisites have already been met, and you can now move forward to the next chapter.
+On Your Own If you are running this chapter on your own, your environment must meet the following requirements:
+AWS CLI The minimal supported version of the AWS CLI supported is 1.16.133.
+The jq utility The jq utility is required by some of this module&amp;rsquo;s scripts.</description>
+    </item>
+
+    <item>
+      <title>Clone the Repo</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/clone_repo/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/clone_repo/</guid>
+      <description>To begin, clone the repository that holds the DJ App&amp;rsquo;s files.
+First, be sure you are in your environment directory:
+cd ~/environment  git clone https://github.com/aws/aws-app-mesh-examples  and change to the repo&amp;rsquo;s project directory:
+cd aws-app-mesh-examples/examples/apps/djapp/  </description>
+    </item>
+
+    <item>
+      <title>Set Permissions</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/set_perms/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/set_perms/</guid>
+      <description>Next, we&amp;rsquo;ll setup the workers to have the correct permissions to run App Mesh API calls.
+Verify that $ROLE_NAME is defined by running the following command:
+echo $ROLE_NAME  If this variable is not defined (the above command returns an empty value), please visit the cluster test chapter and run through the export role name step.
+Also be sure you have your region defined. Verify its set by running the following command:</description>
+    </item>
+
+    <item>
+      <title>Test Permissions</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/test_worker_perms/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/test_worker_perms/</guid>
+      <description>To test that your worker nodes are able to use these permissions correctly, we&amp;rsquo;ll run a job that attempts to list all existing meshes.
+Run this command to set the script to run against the correct region:
+sed -i&#39;.old&#39; -e &#39;s/\&amp;quot;us-west-2\&amp;quot;/\&amp;quot;&#39;$AWS_REGION&#39;\&amp;quot;/&#39; awscli.yaml  Next, execute the job:
+kubectl apply -f awscli.yaml  Make sure its completed by issuing the command:
+kubectl get jobs  And see that desired and successful are both one:</description>
+    </item>
+
+    <item>
+      <title>About DJ App</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/about_the_k8s_app/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/about_the_k8s_app/</guid>
+      <description>The example app we&amp;rsquo;ll walk you through creating on App Mesh is called DJ. DJ is an application used for a cloud-based music service.
+This application is composed of three microservices:
+ dj metal-v1 and jazz-v1  The dj service makes requests to either the jazz or metal backends for artist lists. If the dj service requests from the jazz backend, musical artists such as Miles Davis or Astrud Gilberto will be returned.</description>
+    </item>
+
+    <item>
+      <title>Create DJ App</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/create_the_app/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/create_the_app/</guid>
+      <description>Let&amp;rsquo;s create the DJ App!
+To create the prod namespace, issue the following command:
+kubectl apply -f 1_create_the_initial_architecture/1_prod_ns.yaml  Output should be similar to:
+namespace/prod created  Now that we have the prod namespace created, we&amp;rsquo;ll deploy the DJ App (dj, metal, and jazz microservices) into it.
+Create the DJ App deployment in the prod namespace by issuing the following command:
+kubectl apply -nprod -f 1_create_the_initial_architecture/1_initial_architecture_deployment.yaml  Output should be similar to:</description>
+    </item>
+
+    <item>
+      <title>Test DJ App</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/test_the_app/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/test_the_app/</guid>
+      <description>To test what we&amp;rsquo;ve just created, we&amp;rsquo;ll exec into the DJ pod, and curl out to the jazz-v1 and metal-v1 backends.
+First, we get the name of our DJ pod by listing all pods with the dj app selector:
+kubectl get pods -nprod -l app=dj  Output should be similar to:
+NAME READY STATUS RESTARTS AGE dj-5b445fbdf4-8xkwp 1/1 Running 0 32s  Next, we&amp;rsquo;ll exec into the DJ pod:
+kubectl exec -nprod -it &amp;lt;your-dj-pod-name&amp;gt; bash  Output should be similar to:</description>
+    </item>
+
+    <item>
+      <title>Conclusion</title>
+      <link>/servicemesh_with_appmesh/create_the_k8s_app/conclusion/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/create_the_k8s_app/conclusion/</guid>
+      <description>Congratulations on deploying the initial DJ App architecture!
+Before we create the App Mesh-enabled versions of DJ App, we&amp;rsquo;ll first deploy the App Mesh sidecar auto-injector, and the App Mesh CRDs into our cluster.</description>
+    </item>
+
+  </channel>
+</rss>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Porting DJ to App Mesh on Amazon Chatbot Workshop</title>
+    <link>/servicemesh_with_appmesh/port_to_app_mesh/</link>
+    <description>Recent content in Porting DJ to App Mesh on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Nov 2018 16:32:30 +0900</lastBuildDate>
+
+	<atom:link href="/servicemesh_with_appmesh/port_to_app_mesh/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Create the Mesh</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/create_the_mesh/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/create_the_mesh/</guid>
+      <description>The mesh component serves as the App Mesh foundation, and must be created first. We&amp;rsquo;ll call our mesh dj-app, and define it in the prod namespace by executing the following command from the repository&amp;rsquo;s base directory:
+kubectl create -f 4_create_initial_mesh_components/mesh.yaml  You should see output similar to:
+mesh.appmesh.k8s.aws/dj-app created  Since an App Mesh mesh is a custom resource, we can also use kubectl to view it via the get command.</description>
+    </item>
+
+    <item>
+      <title>Create the Virtual Nodes</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/create_the_virtual_nodes/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/create_the_virtual_nodes/</guid>
+      <description>With the foundational mesh component created, we&amp;rsquo;ll continue onward to define the App Mesh Virtual Node and Virtual Service components.
+All services (physical or virtual) that will interact in any way with each other in App Mesh must first be defined as Virtual Node objects. Abstracting out services as Virtual Nodes helps App Mesh build rulesets around inter-service communication. In addition, as we define Virtual Service objects, Virtual Nodes are referenced as the ingress and target endpoints for those Virtual Services.</description>
+    </item>
+
+    <item>
+      <title>Create the Virtual Services</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/create_the_virtual_services/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/create_the_virtual_services/</guid>
+      <description>The next step is to create the two App Mesh Virtual Services that will intercept and route requests made to jazz and metal.
+To accomplish this, execute the following command:
+kubectl apply -nprod -f 4_create_initial_mesh_components/virtual-services.yaml  Output should be similar to:
+virtualservice.appmesh.k8s.aws/jazz.prod.svc.cluster.local created virtualservice.appmesh.k8s.aws/metal.prod.svc.cluster.local created  If we inspect the YAML we just applied, we&amp;rsquo;ll see that we&amp;rsquo;ve created two VirtualService resources, where requests made to jazz.prod.svc.cluster.local (via the placeholder service IP of 10.</description>
+    </item>
+
+    <item>
+      <title>Bootstrap the Injector</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/triggering_injector_first_time/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/triggering_injector_first_time/</guid>
+      <description>Right now, if we describe any of the pods running in the prod namespace, we&amp;rsquo;ll notice that they are running with just one container, the same one we initially deployed it with:
+kubectl get pods -nprod  yields:
+NAME READY STATUS RESTARTS AGE dj-5b445fbdf4-qf8sv 1/1 Running 0 3h jazz-v1-644856f4b4-mshnr 1/1 Running 0 3h metal-v1-84bffcc887-97qzw 1/1 Running 0 3h  and to take a closer look:
+kubectl describe pods/dj-5b445fbdf4-qf8sv -nprod  yields:</description>
+    </item>
+
+    <item>
+      <title>Testing the App Mesh</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/testing_app_mesh_v1/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/testing_app_mesh_v1/</guid>
+      <description>We should now be able to call metal or jazz from dj, and be routed to either metal-v1 or jazz-v1.
+To test if our ported DJ App is working as expected, we&amp;rsquo;ll first exec into the dj container. To do that, we get the name of our djpod by listing all pods with the dj selector:
+kubectl get pods -nprod -lapp=dj  Output should be similar to:
+NAME READY STATUS RESTARTS AGE dj-5b445fbdf4-8xkwp 1/1 Running 0 32s  Next, we&amp;rsquo;ll exec into the DJ pod returned from the last step:</description>
+    </item>
+
+    <item>
+      <title>Canary Testing with a v2</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/canary_testing/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/canary_testing/</guid>
+      <description>A canary release is a method of slowly exposing a new version of software. The theory behind it is that by serving the new version of the software initially to say, 5% of requests, if there is a problem, the problem only impacts a very small percentage of users before its discovered and rolled back.
+So now back to our DJ App scenario&amp;hellip; the V2 of the metal and jazz services are out, and they now include the city each artist is from in the response.</description>
+    </item>
+
+    <item>
+      <title>Testing DJ App v2</title>
+      <link>/servicemesh_with_appmesh/port_to_app_mesh/testing_the_v2/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/servicemesh_with_appmesh/port_to_app_mesh/testing_the_v2/</guid>
+      <description>To test if its working as expected, we&amp;rsquo;ll exec into the DJ pod. To do that, we get the name of our dj pod by listing all pods with the dj selector:
+kubectl get pods -nprod -l app=dj  Output should be similar to:
+NAME READY STATUS RESTARTS AGE dj-5b445fbdf4-8xkwp 1/1 Running 0 32s  Next, we&amp;rsquo;ll exec into the DJ pod, and make a curl request to the virtual service jazz, simulating what would happen if code running in the same pod made a request to the metal service by entering the following:</description>
+    </item>
+
+  </channel>
+</rss>

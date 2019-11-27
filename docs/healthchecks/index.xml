@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Health Checks on Amazon Chatbot Workshop</title>
+    <link>/healthchecks/</link>
+    <description>Recent content in Health Checks on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+
+	<atom:link href="/healthchecks/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Configure Liveness Probe</title>
+      <link>/healthchecks/livenessprobe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/healthchecks/livenessprobe/</guid>
+      <description>Configure the Probe Use the command below to create a directory
+mkdir -p ~/environment/healthchecks  Save the manifest as ~/environment/healthchecks/liveness-app.yaml using your favorite editor. You can review the manifest that is described below. In the configuration file, the livenessProbe field determines how kubelet should check the container in order to consider whether it is healthy or not. kubelet uses the periodSeconds field to do frequent check on the Container. In this case, kubelet checks the liveness probe every 5 seconds.</description>
+    </item>
+
+    <item>
+      <title>Configure Readiness Probe</title>
+      <link>/healthchecks/readinessprobe/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/healthchecks/readinessprobe/</guid>
+      <description>Configure the Probe Save the text from following block as ~/environment/healthchecks/readiness-deployment.yaml. The readinessProbe definition explains how a linux command can be configured as healthcheck. We create an empty file /tmp/healthy to configure readiness probe and use the same to understand how kubelet helps to update a deployment with only healthy pods.
+cat &amp;lt;&amp;lt;EoF &amp;gt; ~/environment/healthchecks/readiness-deployment.yaml apiVersion: apps/v1 kind: Deployment metadata: name: readiness-deployment spec: replicas: 3 selector: matchLabels: app: readiness-deployment template: metadata: labels: app: readiness-deployment spec: containers: - name: readiness-deployment image: alpine command: [&amp;quot;sh&amp;quot;, &amp;quot;-c&amp;quot;, &amp;quot;touch /tmp/healthy &amp;amp;&amp;amp; sleep 86400&amp;quot;] readinessProbe: exec: command: - cat - /tmp/healthy initialDelaySeconds: 5 periodSeconds: 3 EoF  We will now create a deployment to test readiness probe:</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/healthchecks/cleanup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/healthchecks/cleanup/</guid>
+      <description>Our Liveness Probe example used HTTP request and Readiness Probe executed a command to check health of a pod. Same can be accomplished using a TCP request as described in the documentation.
+kubectl delete -f ~/environment/healthchecks/liveness-app.yaml kubectl delete -f ~/environment/healthchecks/readiness-deployment.yaml  </description>
+    </item>
+
+  </channel>
+</rss>

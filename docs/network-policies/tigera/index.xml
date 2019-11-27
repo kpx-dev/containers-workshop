@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Integrating Network Policy with VPC Security Groups and CloudWatch on Amazon Chatbot Workshop</title>
+    <link>/network-policies/tigera/</link>
+    <description>Recent content in Integrating Network Policy with VPC Security Groups and CloudWatch on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 13:15:13 -0700</lastBuildDate>
+
+	<atom:link href="/network-policies/tigera/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Register</title>
+      <link>/network-policies/tigera/register/</link>
+      <pubDate>Tue, 07 Aug 2018 13:15:13 -0700</pubDate>
+
+      <guid>/network-policies/tigera/register/</guid>
+      <description>Tigera Secure Cloud Edition can be enabled through the [AWS Marketplace]. However, for this workshop, Tigera has enabled a 30 day free trial. To register for the free trial, please follow the steps below:
+ Go to the Tigera Secure Cloud Edition trial registration website at https://ce.tigera.io and click the register button.
+ On the next page fill in your e-mail and company name and use the code EKS30 for the access code.</description>
+    </item>
+
+    <item>
+      <title>Preparing the environment</title>
+      <link>/network-policies/tigera/environment/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/environment/</guid>
+      <description>If you have setup your kubernetes cluster using the Cloud9 environment and eksctl, as instructed at the start of this workshop, then you can follow the abbreviated instructions here, as much of the work has been done for you. If not please refer to the instructions you received when you downloaded the Tigera Secure Cloud Edition 1.0.1 link.
+ The instructions below assume that you have followed all of the initial EKSWorkshop setup instructions when creating your cluster.</description>
+    </item>
+
+    <item>
+      <title>Installing Tigera Secure Cloud Edition</title>
+      <link>/network-policies/tigera/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/install/</guid>
+      <description>Now that your environment variables are set, and tsctl is installed, we need to install TSCE itself. To do so, run the following command. The instructions in the Tigera Secure CE v1.0.1 document that you downloaded earlier are almost exactly the same as what is shown here. The only difference is that we&amp;rsquo;ve changed a variable name from $TOKEN to $TS_TOKEN to avoid colliding with other $TOKEN variables that might be set in your environment.</description>
+    </item>
+
+    <item>
+      <title>Walk through TSCE&#39;s extensions to Calico</title>
+      <link>/network-policies/tigera/tsce-feature-intro/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/tsce-feature-intro/</guid>
+      <description>Now that TSCE is installed in your cluster, you could go back and re-run the examples in the Project Calico section, just to convince yourself that all those features remain working in a TSCE environment.
+The two feature areas that we are going to showcase in this section are:
+ VPC Security Group integration. Enhanced flow visibility in CloudWatch  Let&amp;rsquo;s get started.</description>
+    </item>
+
+    <item>
+      <title>Integrating VPC Security Groups and Kubernetes Network Policy with TSCE</title>
+      <link>/network-policies/tigera/tsce-sg-integration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/tsce-sg-integration/</guid>
+      <description>The network security that Calico provides in EKS is great, however it is primarily focused on the EKS cluster itself. A common use-case for EKS, however, is to build a kubernetes cluster that can interact with other Amazon hosted resources, such as EC2 and RDS instances. The native protection for those resources is the VPC&amp;rsquo;s Security Group filtering.
+The problem with this, however, is that, by default, VPC Security Groups can only be applied to EC2 instances.</description>
+    </item>
+
+    <item>
+      <title>Integrating Detailed Kubernetes Networking Flow Logs in CloudWatch</title>
+      <link>/network-policies/tigera/tsce-cw-integration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/tsce-cw-integration/</guid>
+      <description>Now that we have policies installed, and traffic being generated in the cluster, we can look at the CloudWatch integration that TSCE provides.
+We&amp;rsquo;re assuming that you have run through both the Calico section of this tutorial and the first part of the TSCE section. If you skipped the Calico section, please go back and run through that as well, as we are relying on the synthetic applications used in the Calico examples to generate flowlogs in CloudWatch.</description>
+    </item>
+
+    <item>
+      <title>Initializing Network Policy</title>
+      <link>/network-policies/tigera/init-policy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/init-policy/</guid>
+      <description>Now that we&amp;rsquo;ve seen that all the traffic is being allowed in the cluster, let&amp;rsquo;s start tightening the policies, and restrict some of the traffic. To do that, we will first create a default deny policy that will block all inbound traffic in our default namespace unless it is specifically allowed. To do that, we create a null policy that matches everything in the default namespace.
+The YAML fragment that defines such a policy can be seen below</description>
+    </item>
+
+    <item>
+      <title>Policy Enabling the Backends</title>
+      <link>/network-policies/tigera/backend-policy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/network-policies/tigera/backend-policy/</guid>
+      <description>Now, let&amp;rsquo;s create a policy that allows the ecsdemo-frontend microservice to communicate with the ecsdemo-nodejs microservice. That policy will look something like this:
+apiVersion: networking.k8s.io/v1 kind: NetworkPolicy metadata: name: ecsdemo-nodejs spec: podSelector: matchLabels: app: ecsdemo-nodejs ingress: - ports: -port: 3000 from: - podSelector: matchLabels: app: ecsdemo-frontend  Let&amp;rsquo;s create that policy in a file, called ecsdemo-nodejs-policy.yaml and then load it into Kubernetes using kubectl.
+$ kubectl apply -f ecsdemo-nodejs-policy.yaml  Once you&amp;rsquo;ve done that, again, look at the flow logs and you will see that traffic between the frontend and the nodejs services is now being allowed, but the traffic from the frontend to the crystal microservice is still being blocked.</description>
+    </item>
+
+  </channel>
+</rss>

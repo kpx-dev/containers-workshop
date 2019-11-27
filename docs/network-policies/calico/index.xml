@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Create Network Policies Using Calico on Amazon Chatbot Workshop</title>
+    <link>/network-policies/calico/</link>
+    <description>Recent content in Create Network Policies Using Calico on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 08 Nov 2018 08:30:11 -0700</lastBuildDate>
+
+	<atom:link href="/network-policies/calico/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Install Calico</title>
+      <link>/network-policies/calico/install_calico/</link>
+      <pubDate>Thu, 08 Nov 2018 08:30:11 -0700</pubDate>
+
+      <guid>/network-policies/calico/install_calico/</guid>
+      <description>Apply the Calico manifest from the aws/amazon-vpc-cni-k8s GitHub project. This creates the daemon sets in the kube-system namespace.
+kubectl apply -f https://raw.githubusercontent.com/aws/amazon-vpc-cni-k8s/master/config/v1.2/calico.yaml  Let&amp;rsquo;s go over few key features of the Calico manifest:
+1) We see an annotation throughout; annotations are a way to attach non-identifying metadata to objects. This metadata is not used internally by Kubernetes, so they cannot be used to identify within k8s. Instead, they are used by external tools and libraries.</description>
+    </item>
+
+  </channel>
+</rss>

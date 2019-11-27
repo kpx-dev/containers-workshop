@@ -1,0 +1,46 @@
+languageCode = "en-us"
+ignoreFiles = [ "\\.files/README.md$",  ]
+defaultContentLanguage = "en"
+title = "Containers Workshop"
+theme = "learn"
+uglyurls = false
+googleAnalytics = ""
+sectionPagesMenu = "main"
+relativeURLs = true
+publishDir = "docs"
+
+[blackfriday]
+hrefTargetBlank = true
+
+[params]
+editURL = "https://github.com/kienpham2000/containers-workshop/edit/master/content/"
+themeVariant = "mine"
+showVisitedLinks = false
+author = "Kien Pham"
+description = "Containers Workshop"
+disableSearch = false
+disableAssetsBusting = false
+disableLanguageSwitchingButton = true
+disableShortcutsTitle=false
+disableInlineCopyToClipBoard = true
+ghrepo = "https://github.com/kienpham2000/containers-workshop/"
+branch = "master"
+template_bucket = "chatbotworkshop.com"
+pygmentsUseClasses = true
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsStyle = "tango"
+
+#
+
+[menu]
+  [[menu.main]]
+    identifier = "Prerequisites"
+    name = "This is the Mu track"
+    title = "Workshop using Mu"
+    url = "/mu/"
+    weight = -110
+
+[outputs]
+home = [ "HTML", "JSON"]
+page = [ "HTML" ]

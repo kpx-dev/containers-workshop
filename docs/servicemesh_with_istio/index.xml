@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Service Mesh with Istio on Amazon Chatbot Workshop</title>
+    <link>/servicemesh_with_istio/</link>
+    <description>Recent content in Service Mesh with Istio on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Nov 2018 16:32:30 +0900</lastBuildDate>
+
+	<atom:link href="/servicemesh_with_istio/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Introduction</title>
+      <link>/servicemesh_with_istio/introduction/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:24 +0900</pubDate>
+
+      <guid>/servicemesh_with_istio/introduction/</guid>
+      <description>Istio Istio is a completely open source service mesh that layers transparently onto existing distributed applications. It&amp;rsquo;s also a platform, including APIs, that let it integrate into any logging platform, or telemetry or policy system.
+Let&amp;rsquo;s review in more detail what each of the components that make up this service mesh are.
+ Envoy
+ Processes the inbound/outbound traffic from inter-service and service-to-external-service transparently.  Pilot
+ Pilot provides service discovery for the Envoy sidecars, traffic management capabilities for intelligent routing (e.</description>
+    </item>
+
+    <item>
+      <title>Download and Install Istio CLI</title>
+      <link>/servicemesh_with_istio/download/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:43 +0900</pubDate>
+
+      <guid>/servicemesh_with_istio/download/</guid>
+      <description>Before we can get started configuring Istio we’ll need to first install the command line tools that you will interact with. To do this run the following.
+cd ~/environment curl -L https://git.io/getLatestIstio | sh - // version can be different as istio gets upgraded cd istio-* sudo mv -v bin/istioctl /usr/local/bin/  </description>
+    </item>
+
+    <item>
+      <title>Install Istio</title>
+      <link>/servicemesh_with_istio/install/</link>
+      <pubDate>Wed, 20 Mar 2019 13:36:55 +0100</pubDate>
+
+      <guid>/servicemesh_with_istio/install/</guid>
+      <description>Define service account for Tiller Helm and Tiller are required for the following examples. If you have not installed Helm yet, please first reference the Helm chapter before proceeding.
+First create a service account for Tiller:
+kubectl apply -f install/kubernetes/helm/helm-service-account.yaml  Install Istio CRDs The Custom Resource Definitions, also known as CRDs are API resources which allow you to define custom resources.
+helm install install/kubernetes/helm/istio-init --name istio-init --namespace istio-system  You can check the installation by running:</description>
+    </item>
+
+    <item>
+      <title>Deploy Sample Apps</title>
+      <link>/servicemesh_with_istio/deploy/</link>
+      <pubDate>Tue, 13 Nov 2018 16:37:17 +0900</pubDate>
+
+      <guid>/servicemesh_with_istio/deploy/</guid>
+      <description>Now that we have all the resources installed for Istio, we will use sample application called BookInfo to review key capabilities of the service mesh such as intelligent routing, and review telemetry data using Prometheus &amp;amp; Grafana.
+Sample Apps The Bookinfo application is broken into four separate microservices:
+ productpage
+ The productpage microservice calls the details and reviews microservices to populate the page.  details
+ The details microservice contains book information.</description>
+    </item>
+
+    <item>
+      <title>Intelligent Routing</title>
+      <link>/servicemesh_with_istio/routing/</link>
+      <pubDate>Tue, 13 Nov 2018 21:49:32 +0900</pubDate>
+
+      <guid>/servicemesh_with_istio/routing/</guid>
+      <description>Intelligent Routing Deploying a microservice-based application in an Istio service mesh allows one to externally control service monitoring and tracing, request (version) routing, resiliency testing, security and policy enforcement, and more in a consistent manner across the services, and the application.
+Before you can use Istio to control the Bookinfo version routing, you&amp;rsquo;ll need to define the available versions, called subsets, in destination rules.
+Service versions (a.k.a. subsets) - In a continuous deployment scenario, for a given service, there can be distinct subsets of instances running different variants of the application binary.</description>
+    </item>
+
+    <item>
+      <title>Monitor &amp; Visualize</title>
+      <link>/servicemesh_with_istio/visualize/</link>
+      <pubDate>Tue, 13 Nov 2018 22:42:01 +0900</pubDate>
+
+      <guid>/servicemesh_with_istio/visualize/</guid>
+      <description>Collecting new telemetry data Next, download a YAML file to hold configuration for the new metric and log stream that Istio will generate and collect automatically.
+curl -LO https://eksworkshop.com/servicemesh_with_istio/deploy.files/istio-telemetry.yaml kubectl apply -f istio-telemetry.yaml  Make sure Prometheus and Grafana are running
+kubectl -n istio-system get svc prometheus kubectl -n istio-system get svc grafana  Setup port-forwarding for Grafana by executing the following command:
+kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath=&#39;{.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/servicemesh_with_istio/cleanup/</link>
+      <pubDate>Wed, 20 Mar 2019 13:59:44 +0100</pubDate>
+
+      <guid>/servicemesh_with_istio/cleanup/</guid>
+      <description>To cleanup, follow the below steps.
+To remove telemetry configuration / port-forward process
+kubectl delete -f istio-telemetry.yaml  To remove the application virtual services / destination rules
+kubectl delete -f samples/bookinfo/networking/virtual-service-all-v1.yaml kubectl delete -f samples/bookinfo/networking/destination-rule-all.yaml  To remove the gateway / application
+kubectl delete -f samples/bookinfo/networking/bookinfo-gateway.yaml kubectl delete -f samples/bookinfo/platform/kube/bookinfo.yaml  To remove Istio
+helm delete --purge istio helm delete --purge istio-init  </description>
+    </item>
+
+  </channel>
+</rss>

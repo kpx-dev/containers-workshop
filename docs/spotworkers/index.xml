@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Using Spot Instances with EKS on Amazon Chatbot Workshop</title>
+    <link>/spotworkers/</link>
+    <description>Recent content in Using Spot Instances with EKS on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 11:05:19 -0700</lastBuildDate>
+
+	<atom:link href="/spotworkers/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Add EC2 Workers - On-Demand and Spot</title>
+      <link>/spotworkers/workers/</link>
+      <pubDate>Tue, 07 Aug 2018 11:05:19 -0700</pubDate>
+
+      <guid>/spotworkers/workers/</guid>
+      <description>We have our EKS Cluster and worker nodes already, but we need some Spot Instances configured as workers. We also need a Node Labeling strategy to identify which instances are Spot and which are on-demand so that we can make more intelligent scheduling decisions. We will use AWS CloudFormation to launch new worker nodes that will connect to the EKS cluster.
+This template will create a single ASG that leverages the latest feature to mix multiple instance types and purchase as a single K8s nodegroup.</description>
+    </item>
+
+    <item>
+      <title>Deploy The Spot Interrupt Handler</title>
+      <link>/spotworkers/deployhandler/</link>
+      <pubDate>Tue, 07 Aug 2018 12:32:40 -0700</pubDate>
+
+      <guid>/spotworkers/deployhandler/</guid>
+      <description>In this section, we will prepare our cluster to handle Spot interruptions.
+If the available On-Demand capacity of a particular instance type is depleted, the Spot Instance is sent an interruption notice two minutes ahead to gracefully wrap up things. We will deploy a pod on each spot instance to detect and redeploy applications elsewhere in the cluster
+The first thing that we need to do is deploy the Spot Interrupt Handler on each Spot Instance.</description>
+    </item>
+
+    <item>
+      <title>Deploy an Application on Spot</title>
+      <link>/spotworkers/preferspot/</link>
+      <pubDate>Tue, 18 Sep 2018 17:40:09 -0500</pubDate>
+
+      <guid>/spotworkers/preferspot/</guid>
+      <description>We are redesigning our Microservice example and want our frontend service to be deployed on Spot Instances when they are available. We will use Node Affinity in our manifest file to configure this.
+Configure Node Affinity and Tolerations Open the deployment manifest in your Cloud9 editor - ~/environment/ecsdemo-frontend/kubernetes/deployment.yaml
+Edit the spec to configure NodeAffinity to prefer Spot Instances, but not require them. This will allow the pods to be scheduled on On-Demand nodes if no spot instances were available or correctly labelled.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/spotworkers/cleanup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/spotworkers/cleanup/</guid>
+      <description>Cleanup our Microservices deployment
+cd ~/environment/ecsdemo-frontend kubectl delete -f kubernetes/service.yaml kubectl delete -f kubernetes/deployment.yaml cd ~/environment/ecsdemo-crystal kubectl delete -f kubernetes/service.yaml kubectl delete -f kubernetes/deployment.yaml cd ~/environment/ecsdemo-nodejs kubectl delete -f kubernetes/service.yaml kubectl delete -f kubernetes/deployment.yaml  Cleanup the Spot Handler Daemonset
+kubectl delete -f ~/environment/spot/spot-interrupt-handler-example.yml  To clean up the worker created by this module, run the following commands:
+Remove the Worker nodes from EKS:
+aws cloudformation delete-stack --stack-name &amp;quot;eksworkshop-spot-workers&amp;quot;  </description>
+    </item>
+
+  </channel>
+</rss>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Custom Resource Definition on Amazon Chatbot Workshop</title>
+    <link>/custom_resource_definition/</link>
+    <description>Recent content in Custom Resource Definition on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Apr 2019 00:00:00 -0300</lastBuildDate>
+
+	<atom:link href="/custom_resource_definition/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Creating a CRD</title>
+      <link>/custom_resource_definition/creating_crd/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/custom_resource_definition/creating_crd/</guid>
+      <description>When you create a new CustomResourceDefinition (CRD), the Kubernetes API Server creates a new RESTful resource path for each version you specify. The CRD can be either namespaced or cluster-scoped, as specified in the CRD’s scope field. As with existing built-in objects, deleting a namespace deletes all custom objects in that namespace. CustomResourceDefinitions themselves are non-namespaced and are available to all namespaces.
+For example, if you save the following CustomResourceDefinition to resourcedefinition.</description>
+    </item>
+
+    <item>
+      <title>Create Custom Objects</title>
+      <link>/custom_resource_definition/creating_co/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/custom_resource_definition/creating_co/</guid>
+      <description>After the CustomResourceDefinition object has been created, you can create custom objects. Custom objects can contain custom fields. These fields can contain arbitrary JSON. In the following example, the cronSpec and image custom fields are set in a custom object of kind CronTab. The kind CronTab comes from the spec of the CustomResourceDefinition object you created above.
+If you save the following YAML to my-crontab.yaml:
+cat &amp;lt;&amp;lt;EoF &amp;gt; ~/environment/my-crontab.yaml apiVersion: &amp;quot;stable.</description>
+    </item>
+
+    <item>
+      <title>Clean Up</title>
+      <link>/custom_resource_definition/cleaning/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/custom_resource_definition/cleaning/</guid>
+      <description> Cleaning up To delete the Custom Resource Definitions:
+kubectl delete -f resourcedefinition.yaml kubectl get crontabs  </description>
+    </item>
+
+  </channel>
+</rss>

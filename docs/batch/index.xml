@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Batch Processing with Argo on Amazon Chatbot Workshop</title>
+    <link>/batch/</link>
+    <description>Recent content in Batch Processing with Argo on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Nov 2018 00:00:00 -0500</lastBuildDate>
+
+	<atom:link href="/batch/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Introduction</title>
+      <link>/batch/introduction/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/introduction/</guid>
+      <description>Introduction Batch processing refers to performing units of work, referred to as a job in a repetitive and unattended fashion. Jobs are typically grouped together and processed in batches (hence the name).
+Kubernetes includes native support for running Jobs. Jobs can run multiple pods in parallel until receiving a set number of completions. Each pod can contain multiple containers as a single unit of work.
+Argo enhances the batch processing experience by introducing a number of features:</description>
+    </item>
+
+    <item>
+      <title>Kubernetes Jobs</title>
+      <link>/batch/jobs/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/jobs/</guid>
+      <description>Kubernetes Jobs A job creates one or more pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the job tracks the successful completions. When a specified number of successful completions is reached, the job itself is complete. Deleting a Job will cleanup the pods it created.
+Save the below manifest as &amp;lsquo;job-whalesay.yaml&amp;rsquo; using your favorite editor.
+apiVersion: batch/v1 kind: Job metadata: name: whalesay spec: template: spec: containers: - name: whalesay image: docker/whalesay command: [&amp;quot;cowsay&amp;quot;, &amp;quot;This is a Kubernetes Job!</description>
+    </item>
+
+    <item>
+      <title>Install Argo CLI</title>
+      <link>/batch/install/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/install/</guid>
+      <description> Install Argo CLI Before we can get started configuring argo we&amp;rsquo;ll need to first install the command line tools that you will interact with. To do this run the following.
+sudo curl -sSL -o /usr/local/bin/argo https://github.com/argoproj/argo/releases/download/v2.2.1/argo-linux-amd64 sudo chmod +x /usr/local/bin/argo  </description>
+    </item>
+
+    <item>
+      <title>Deploy Argo</title>
+      <link>/batch/deploy/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/deploy/</guid>
+      <description>Deploy Argo Argo run in its own namespace and deploys as a CustomResourceDefinition.
+Deploy the Controller and UI.
+kubectl create ns argo kubectl apply -n argo -f https://raw.githubusercontent.com/argoproj/argo/v2.2.1/manifests/install.yaml  namespace/argo created customresourcedefinition.apiextensions.k8s.io/workflows.argoproj.io created serviceaccount/argo created serviceaccount/argo-ui created clusterrole.rbac.authorization.k8s.io/argo-aggregate-to-admin created clusterrole.rbac.authorization.k8s.io/argo-aggregate-to-edit created clusterrole.rbac.authorization.k8s.io/argo-aggregate-to-view created clusterrole.rbac.authorization.k8s.io/argo-cluster-role created clusterrole.rbac.authorization.k8s.io/argo-ui-cluster-role created clusterrolebinding.rbac.authorization.k8s.io/argo-binding created clusterrolebinding.rbac.authorization.k8s.io/argo-ui-binding created configmap/workflow-controller-configmap created service/argo-ui created deployment.apps/argo-ui created deployment.apps/workflow-controller created  To use advanced features of Argo for this demo, create a RoleBinding to grant admin privileges to the &amp;lsquo;default&amp;rsquo; service account.</description>
+    </item>
+
+    <item>
+      <title>Configure Artifact Repository</title>
+      <link>/batch/artifact/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/artifact/</guid>
+      <description>Configure Artifact Repository Argo uses an artifact repository to pass data between jobs in a workflow, known as artifacts. Amazon S3 can be used as an artifact repository.
+Let&amp;rsquo;s create a S3 bucket using the AWS CLI.
+aws s3 mb s3://batch-artifact-repository-${ACCOUNT_ID}/  Next, edit the workflow-controller ConfigMap to use the S3 bucket.
+kubectl edit -n argo configmap/workflow-controller-configmap  Add the following lines to the end of the ConfigMap, substituting your Account ID for {{ACCOUNT_ID}}:</description>
+    </item>
+
+    <item>
+      <title>Simple Batch Workflow</title>
+      <link>/batch/workflow-simple/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/workflow-simple/</guid>
+      <description>Simple Batch Workflow Save the below manifest as &amp;lsquo;workflow-whalesay.yaml&amp;rsquo; using your favorite editor and let&amp;rsquo;s deploy the whalesay example from before using Argo.
+apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: whalesay- spec: entrypoint: whalesay templates: - name: whalesay container: image: docker/whalesay command: [cowsay] args: [&amp;quot;This is an Argo Workflow!&amp;quot;]  Now deploy the workflow using the argo CLI.
+You can also run workflow specs directly using kubectl but the argo CLI provides syntax checking, nicer output, and requires less typing.</description>
+    </item>
+
+    <item>
+      <title>Advanced Batch Workflow</title>
+      <link>/batch/workflow-advanced/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/workflow-advanced/</guid>
+      <description>Advanced Batch Workflow Let&amp;rsquo;s take a look at a more complex workflow, involving passing artifacts between jobs, multiple dependencies, etc.
+Save the below manifest as teardrop.yaml using your favorite editor.
+apiVersion: argoproj.io/v1alpha1 kind: Workflow metadata: generateName: teardrop- spec: entrypoint: teardrop templates: - name: create-chain container: image: alpine:latest command: [&amp;quot;sh&amp;quot;, &amp;quot;-c&amp;quot;] args: [&amp;quot;echo &#39;&#39; &amp;gt;&amp;gt; /tmp/message&amp;quot;] outputs: artifacts: - name: chain path: /tmp/message - name: whalesay inputs: parameters: - name: message artifacts: - name: chain path: /tmp/message container: image: docker/whalesay command: [&amp;quot;sh&amp;quot;, &amp;quot;-c&amp;quot;] args: [&amp;quot;echo Chain: ; cat /tmp/message* | sort | uniq | tee /tmp/message; cowsay This is Job {{inputs.</description>
+    </item>
+
+    <item>
+      <title>Argo Dashboard</title>
+      <link>/batch/dashboard/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/dashboard/</guid>
+      <description>Argo Dashboard Argo UI lists the workflows and visualizes each workflow (very handy for our last workflow).
+To connect, use the same proxy connection setup in Deploy the Official Kubernetes Dashboard.
+  Show me the command   kubectl proxy --port=8080 --address=&#39;0.0.0.0&#39; --disable-filter=true &amp;amp;  This will start the proxy, listen on port 8080, listen on all interfaces, and will disable the filtering of non-localhost requests.
+This command will continue to run in the background of the current terminal&amp;rsquo;s session.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/batch/cleanup/</link>
+      <pubDate>Sun, 18 Nov 2018 00:00:00 -0500</pubDate>
+
+      <guid>/batch/cleanup/</guid>
+      <description> Cleanup Delete all workflows argo delete --all  Remove Artifact Repository Bucket aws s3 rb s3://batch-artifact-repository-${ACCOUNT_ID}/ --force  Undeploy Argo kubectl delete -n argo -f https://raw.githubusercontent.com/argoproj/argo/v2.2.1/manifests/install.yaml kubectl delete ns argo  Cleanup Kubernetes Job kubectl delete job/whalesay  </description>
+    </item>
+
+  </channel>
+</rss>

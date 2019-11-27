@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>IAM Roles for Service Accounts on Amazon Chatbot Workshop</title>
+    <link>/irsa/</link>
+    <description>Recent content in IAM Roles for Service Accounts on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Nov 2018 16:32:30 +0900</lastBuildDate>
+
+	<atom:link href="/irsa/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Preparation</title>
+      <link>/irsa/preparation/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:24 +0900</pubDate>
+
+      <guid>/irsa/preparation/</guid>
+      <description>Enabling IAM Roles for Service Accounts on your Cluster  The IAM roles for service accounts feature is available on new Amazon EKS Kubernetes version 1.14 clusters, and clusters that were updated to versions 1.14 or 1.13 on or after September 3rd, 2019.  kubectl version --short     1.14 1.13     Client Version: v1.14.6-eks-5047ed Client Version: v1.13.7   Server Version: v1.14.6-eks-5047ed Server Version: v1.</description>
+    </item>
+
+    <item>
+      <title>Create an OIDC identity provider</title>
+      <link>/irsa/oidc-provider/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:24 +0900</pubDate>
+
+      <guid>/irsa/oidc-provider/</guid>
+      <description>To create an IAM OIDC identity provider for your cluster with eksctl To use IAM roles for service accounts in your cluster, you must create an OIDC identity provider in the IAM console
+ Check your eksctl version that your eksctl version is at least 0.5.1  eksctl version   [ℹ] version.Info{BuiltAt:&amp;ldquo;&amp;rdquo;, GitCommit:&amp;ldquo;&amp;rdquo;, GitTag:&amp;ldquo;0.5.3&amp;rdquo;}
+ If your eksctl version is lower than 0.5.1, use Installing or Upgrading eksctl in the user guide</description>
+    </item>
+
+    <item>
+      <title>Creating an IAM Role for Service Account</title>
+      <link>/irsa/iam-role-for-sa-1/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:24 +0900</pubDate>
+
+      <guid>/irsa/iam-role-for-sa-1/</guid>
+      <description>To create an IAM role for your service accounts with eksctl You must create an IAM policy that specifies the permissions that you would like the containers in your pods to have. In this workshop we will use AWS maanged policy named &amp;ldquo;AmazonS3ReadOnlyAccess&amp;rdquo; which allow get and list for all S3 resources.
+You must also create a role for your service accounts to use before you associate it with a service account.</description>
+    </item>
+
+    <item>
+      <title>Specifying an IAM Role for Service Account</title>
+      <link>/irsa/iam-role-for-sa-2/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:24 +0900</pubDate>
+
+      <guid>/irsa/iam-role-for-sa-2/</guid>
+      <description>Specifying an IAM Role for your Service Account In the previous step, we created the IAM role that associated with a service account named iam-test in the cluster and this has already been done for you with the service account you specified when creating the role.
+ Be sure your service account iam-test is exist  kubectl get sa     NAME SECRETS AGE     default 1 85m   iam-test 1 44m     Make sure your service account with the ARN of the IAM role is annotated  kubectl describe sa iam-test   Name: iam-test</description>
+    </item>
+
+    <item>
+      <title>Deploy Sample Pod</title>
+      <link>/irsa/deploy/</link>
+      <pubDate>Tue, 13 Nov 2018 16:36:24 +0900</pubDate>
+
+      <guid>/irsa/deploy/</guid>
+      <description>Now that we have completed all the necessary configuration to run a Pod with IAM role. We will deploy sample Pod to the cluster, and run a test command to see whether it works correctly or not.
+curl -LO https://eksworkshop.com/irsa/deploy.files/iam-pod.yaml kubectl apply -f iam-pod.yaml   Make sure your pod is in Running status  kubectl get pod     NAME READY STATUS RESTARTS AGE     eks-iam-test-7fb8c5ffb8-fdr6c 1&amp;frasl;1 Running 0 5m23s     Get into the Pod  kubectl exec -it &amp;lt;place Pod Name&amp;gt; /bin/bash   Manually Call sts:AssumeRoleWithWebIdentity, and you will see AccessKeyId, SecretAccessKey information if configuration is set appropriately  aws sts assume-role-with-web-identity \ --role-arn $AWS_ROLE_ARN \ --role-session-name mh9test \ --web-identity-token file://$AWS_WEB_IDENTITY_TOKEN_FILE \ --duration-seconds 1000   Run awscli to see if it retrives list of Amazon S3 buckets  aws s3 ls   Run awscli to see if it retrives list of Amazon EC2 instances which does not have privileges in the allocated IAM policy  aws ec2 describe-instances --region us-west-2  You will get this error message.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/irsa/cleanup/</link>
+      <pubDate>Wed, 20 Mar 2019 13:59:44 +0100</pubDate>
+
+      <guid>/irsa/cleanup/</guid>
+      <description>To cleanup, follow the below steps.
+To remove sample application
+kubectl delete -f iam-pod.yaml  To remove IAM role and Service Account stack from cloudformation
+eksctl delete iamserviceaccount --name iam-test --namespace default --cluster eksworkshop-eksctl-yourusername  </description>
+    </item>
+
+  </channel>
+</rss>

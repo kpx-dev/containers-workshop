@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Intro_to_rbacs on Amazon Chatbot Workshop</title>
+    <link>/intro_to_rbac/</link>
+    <description>Recent content in Intro_to_rbacs on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 03 Oct 2018 10:14:46 -0700</lastBuildDate>
+
+	<atom:link href="/intro_to_rbac/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>What is RBAC?</title>
+      <link>/intro_to_rbac/intro/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/intro/</guid>
+      <description>According to the official kubernetes docs:
+ Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within an enterprise.
+ The core logical components of RBAC are:
+Entity
+A group, user, or service account (an identity representing an application that wants to execute certain operations (actions) and requires permissions to do so).
+Resource
+A pod, service, or secret that the entity wants to access using the certain operations.</description>
+    </item>
+
+    <item>
+      <title>Install Test Pods</title>
+      <link>/intro_to_rbac/install_test_pods/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/install_test_pods/</guid>
+      <description>In this tutorial, we&amp;rsquo;re going to demonstrate how to provide limited access to pods running in the rbac-test namespace for a user named rbac-user.
+To do that, let&amp;rsquo;s first create the rbac-test namespace, and then install nginx into it:
+kubectl create namespace rbac-test kubectl create deploy nginx --image=nginx -n rbac-test  To verify the test pods were properly installed, run:
+kubectl get all -n rbac-test  Output should be similar to:</description>
+    </item>
+
+    <item>
+      <title>Create a User</title>
+      <link>/intro_to_rbac/create_iam_user/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/create_iam_user/</guid>
+      <description>For the sake of simplicity, in this chapter, we will save credentials to a file to make it easy to toggle back and forth between users. Never do this in production or with credentials that have priveledged access; It is not a security best practice to store credentials on the filesystem.
+ From within the Cloud9 terminal, create a new user called rbac-user, and generate/save credentials for it:
+aws iam create-user --user-name rbac-user aws iam create-access-key --user-name rbac-user | tee /tmp/create_output.</description>
+    </item>
+
+    <item>
+      <title>Map an IAM User to K8s</title>
+      <link>/intro_to_rbac/map_iam_user_to_k8s_user/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/map_iam_user_to_k8s_user/</guid>
+      <description>Next, we&amp;rsquo;ll define a k8s user called rbac-user, and map to it&amp;rsquo;s IAM user counterpart. Run the following to create a ConfigMap called aws-auth.yaml that creates this mapping:
+cat &amp;lt;&amp;lt; EoF &amp;gt; aws-auth.yaml apiVersion: v1 kind: ConfigMap metadata: name: aws-auth namespace: kube-system data: mapUsers: | - userarn: arn:aws:iam::${ACCOUNT_ID}:user/rbac-user username: rbac-user EoF  Some of the values may be dynamically populated when the file is created. To verify everything populated and was created correctly, run the following:</description>
+    </item>
+
+    <item>
+      <title>Test the new user</title>
+      <link>/intro_to_rbac/test_rbac_user_without_roles/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/test_rbac_user_without_roles/</guid>
+      <description>Up until now, as the cluster operator, you&amp;rsquo;ve been accessing the cluster as the admin user. Let&amp;rsquo;s now see what happens when we access the cluster as the newly created rbac-user.
+Issue the following command to source the rbac-user&amp;rsquo;s AWS IAM user environmental variables:
+. rbacuser_creds.sh  By running the above command, you&amp;rsquo;ve now set AWS environmental variables which should override the default admin user or role. To verify we&amp;rsquo;ve overrode the default user settings, run the following command:</description>
+    </item>
+
+    <item>
+      <title>Create the Role and Binding</title>
+      <link>/intro_to_rbac/create_role_and_binding/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/create_role_and_binding/</guid>
+      <description>As mentioned earlier, we have our new user rbac-user, but its not yet bound to any roles. In order to do that, we&amp;rsquo;ll need to switch back to our default admin user.
+Run the following to unset the environmental variables that define us as rbac-user:
+unset AWS_SECRET_ACCESS_KEY unset AWS_ACCESS_KEY_ID  To verify we&amp;rsquo;re the admin user again, and no longer rbac-user, issue the following command:
+aws sts get-caller-identity  The output should show the user is no longer rbac-user:</description>
+    </item>
+
+    <item>
+      <title>Verify the Role and Binding</title>
+      <link>/intro_to_rbac/verify_user_role_binding/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/verify_user_role_binding/</guid>
+      <description>Now that the user, Role, and RoleBinding are defined, lets switch back to rbac-user, and test.
+To switch back to rbac-user, issue the following command that sources the rbac-user env vars, and verifies they&amp;rsquo;ve taken:
+. rbacuser_creds.sh; aws sts get-caller-identity  You should see output reflecting that you are logged in as rbac-user.
+As rbac-user, issue the following to get pods in the rbac namespace:
+kubectl get pods -n rbac-test  The output should be similar to:</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/intro_to_rbac/cleanup/</link>
+      <pubDate>Wed, 03 Oct 2018 10:14:46 -0700</pubDate>
+
+      <guid>/intro_to_rbac/cleanup/</guid>
+      <description>Once you have completed this chapter, you can cleanup the files and resources you created by issuing the following commands:
+unset AWS_SECRET_ACCESS_KEY unset AWS_ACCESS_KEY_ID kubectl delete namespace rbac-test rm aws-auth.yaml rm rbacuser_creds.sh rm /tmp/create_output.json rm rbacuser-role.yaml  </description>
+    </item>
+
+  </channel>
+</rss>

@@ -1,0 +1,113 @@
+[
+{
+	"uri": "/",
+	"title": "Serverless Workshop",
+	"tags": [],
+	"description": "",
+	"content": "Serverless Workshop We\u0026rsquo;ll learn about AWS Serverless offering. Click on Lab 1 on the left to get started.\n"
+},
+{
+	"uri": "/container/",
+	"title": "Lab 1: Container",
+	"tags": [],
+	"description": "",
+	"content": " Lab 1 Overview In this lab, we\u0026rsquo;ll create a simple Docker container, build and run it locally. Then we\u0026rsquo;ll push it to ECR and run it using ECS Fargate.\n"
+},
+{
+	"uri": "/container/clone-container-repo/",
+	"title": "Clone container repo",
+	"tags": [],
+	"description": "",
+	"content": "  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region\n Click on Services Drop down, type Cloud9.\n There should be an existing environment created for you called lab. Click on Open IDE.\n Once launched, go to a Terminal tab:\n  Clone repo and cd into it git clone https://github.com/kienpham2000/docker-example.git cd docker-example  Output will look like this\nadmin:~/environment $ git clone https://github.com/kienpham2000/docker-example.git Cloning into 'docker-example'... remote: Enumerating objects: 9, done. remote: Counting objects: 100% (9/9), done. remote: Compressing objects: 100% (7/7), done. remote: Total 9 (delta 1), reused 4 (delta 0), pack-reused 0 Unpacking objects: 100% (9/9), done.  "
+},
+{
+	"uri": "/serverless/clone-lambda-repo/",
+	"title": "Clone Lambda repo",
+	"tags": [],
+	"description": "",
+	"content": "  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region\n Click on Services Drop down, type Cloud9.\n There should be an existing environment created for you called lab. Click on Open IDE.\n Once launched, go to a Terminal tab:\n  Clone repo and cd into it git clone https://github.com/kienpham2000/lambda-example.git cd lambda-example  "
+},
+{
+	"uri": "/container/docker-build-run/",
+	"title": "Docker build &amp; run",
+	"tags": [],
+	"description": "",
+	"content": " Build the Docker image docker build -t web .  Output\nadmin:~/environment/docker-example (master) $ docker build -t web . Sending build context to Docker daemon 65.54kB Step 1/2 : FROM nginx:alpine ---\u0026gt; b6753551581f Step 2/2 : COPY index.html /usr/share/nginx/html ---\u0026gt; Using cache ---\u0026gt; d44b90c272d6 Successfully built d44b90c272d6 Successfully tagged web:latest  Run the container docker run -p 80:80 --name web web  Verify the container is running Create a new Terminal tab\ndocker ps  Output\nadmin:~/environment $ docker ps CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES eadc9b959908 web \u0026quot;nginx -g 'daemon of…\u0026quot; 33 seconds ago Up 32 seconds 0.0.0.0:80-\u0026gt;80/tcp web  "
+},
+{
+	"uri": "/serverless/",
+	"title": "Lab 2: Serverless",
+	"tags": [],
+	"description": "",
+	"content": " Lab 2 Overview In this lab, we\u0026rsquo;ll a simple Lambda function that watch for new files being uploaded to S3. We\u0026rsquo;ll deploy this Lambda using SAM.\n"
+},
+{
+	"uri": "/serverless/sam/",
+	"title": "Package &amp; Deploy Lambda using SAM",
+	"tags": [],
+	"description": "",
+	"content": " Create the S3 repo to store SAM artifact Since the S3 repo name must be unique globally, please postfix with your username\naws s3api create-bucket --bucket serverless-lab-[your-username]  Upgrade SAM CLI to latest version Run the command below and press ENTER to continue. Once done, please open New Terminal\n./install-sam.sh  Package the template Don\u0026rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name.\nsam package --s3-bucket serverless-lab-[your-username] --s3-prefix lab --output-template-file template_packaged.yaml  Deploy Lambda using SAM This will take 1-2 minutes as SAM is creating CloudFormation stack. You will also see that there\u0026rsquo;s a new S3 bucket created by SAM: serverless-lab-lambda-mys3bucket-.\nsam deploy --template-file template_packaged.yaml --stack-name serverless-lab-lambda --capabilities CAPABILITY_IAM  Add files to S3 Now when you add any file to the above S3 bucket (serverless-lab-lambda-mys3bucket-) you will see that Lambda will get triggered. From Lambda, you can click on Monitoring / CloudWatch and view its latest logs.\n"
+},
+{
+	"uri": "/container/view-page/",
+	"title": "View the container content",
+	"tags": [],
+	"description": "",
+	"content": " Allow your laptop to access EC2 port 80  Go to EC2 / Instances Click on the one running instance Click on Security groups and Inbound / Edit. Allow port 80 to My IP and Save.  Go back to Cloud 9, get the EC2 Public IP curl 169.254.169.254/latest/meta-data/public-ipv4; echo  Open the IP in a new browser tab You should see a text: Hello RTS team!\nStop the container Try stopping the container and refresh the last page, it should not work anymore.\ndocker stop web  "
+},
+{
+	"uri": "/container/ecr/",
+	"title": "Create ECR Repo",
+	"tags": [],
+	"description": "",
+	"content": " Go to ECR service, Get Started. Type in web and click on Create repository.  Click on web / View push commands. Go ahead and copy and paste each command. You will run these commands at Cloud9 Terminal. Note: the first command make sure to include $() Output  Now if you close the push command and refresh the registry, you will see latest image tag pushed to the repo.   "
+},
+{
+	"uri": "/container/ecs/",
+	"title": "Create ECS Cluster",
+	"tags": [],
+	"description": "",
+	"content": " Go to ECS service Click on Get started button  Click on Configure button at the custom section. For the Image, open new browser tab and go to ECR and it\u0026rsquo;s under URI, then append :latest at the end of the URI.  At Step 2, leave everything default and click Next  At Step 3, leave everything default and click Next  At Step 4, review to make sure everything looks good, click Create  After about 3 minutes, all 9 steps will be completed. Click on View Service button   "
+},
+{
+	"uri": "/container/view-ecs/",
+	"title": "View Fargate Container",
+	"tags": [],
+	"description": "",
+	"content": " Click on Tasks tab from ECS default cluster, you\u0026rsquo;ll see one container running on Fargate. If you go back to EC2 and check, there\u0026rsquo;s no new EC2 instance launched!  Click into the link under Task column Under Network, you\u0026rsquo;ll see the Public IP. Open this IP in a new browser tab, you will see the content of your container running on Fargate serverlessly!   "
+},
+{
+	"uri": "/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/authors/",
+	"title": "Credits",
+	"tags": [],
+	"description": "",
+	"content": " Thanks to our wonderful contributors  for making Open Source a better place! "
+},
+{
+	"uri": "/example_cf_templates/",
+	"title": "Example of using CloudFormation Templates",
+	"tags": [],
+	"description": "",
+	"content": " Click below to add a CloudFormation Stack    Use these templates:       Template 1 example \u0026lt;a     href=\u0026ldquo;https://console.aws.amazon.com/cloudformation/home?#/stacks/create/review?stackName=\u0026amp;templateURL=https://s3.amazonaws.com/chatbotworkshop.com/templates/master/example1.yml\u0026quot; target=\u0026rdquo;_blank\u0026rdquo; class=\u0026ldquo;btn btn-default\u0026rdquo;\u0026gt;  Launch  |  Download  | | Template 2 example |  Launch  |  Download  | | Template 3 example |  Launch  |  Download  |\n"
+},
+{
+	"uri": "/more_resources/",
+	"title": "More Resources",
+	"tags": [],
+	"description": "",
+	"content": " Discover more AWS resources for building and running your application on AWS:\nMore Workshops  Amazon ECS Workshop - Learn how to use Stelligent Mu to deploy a microservice architecture that runs in AWS Fargate Amazon Lightsail Workshop - If you are getting started with the cloud and looking for a way to run an extremely low cost environment Lightsail is perfect. Learn how to deploy to Amazon Lightsail with this workshop.  Tools for AWS Fargate and Amazon ECS  Containers on AWS - Learn common best-practices for running containers on AWS fargate - Command line tool for interacting with AWS Fargate. With just a single command you can build, push, and launch your container in Fargate, orchestrated by ECS. Terraform - Use Terraform to deploy your docker containers in Fargate Wonqa is a tool for spinning up disposable QA environments in AWS Fargate, with SSL enabled by Let\u0026rsquo;s Encrypt. More details about Wonqa on the Wonder Engineering blog coldbrew - Fantastic tool that provisions ECS infrastructure, builds and deploys your container, and connects your services to an application load balancer automatically. Has a great developer experience for day to day use mu - Automates everything relating to ECS devops and CI/CD. This framework lets you write a simple metadata file and it constructs all the infrastructure you need so that you can deploy to ECS by simply pushing to your Git repo.  Courses  Microservices with Docker, Flask, and React - Learn how to build, test, and deploy microservices powered by Docker, Flask, React Amazon ECS!  "
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

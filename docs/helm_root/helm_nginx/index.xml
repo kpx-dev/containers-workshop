@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy Nginx With Helm on Amazon Chatbot Workshop</title>
+    <link>/helm_root/helm_nginx/</link>
+    <description>Recent content in Deploy Nginx With Helm on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 08:30:11 -0700</lastBuildDate>
+
+	<atom:link href="/helm_root/helm_nginx/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Update the Chart Repository</title>
+      <link>/helm_root/helm_nginx/updatecharts/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_nginx/updatecharts/</guid>
+      <description>Helm uses a packaging format called Charts. A Chart is a collection of files that describe k8s resources.
+Charts can be simple, describing something like a standalone web server (which is what we are going to create), but they can also be more complex, for example, a chart that represents a full web application stack included web servers, databases, proxies, etc.
+Instead of installing k8s resources manually via kubectl, we can use Helm to install pre-defined Charts faster, with less chance of typos or other operator errors.</description>
+    </item>
+
+    <item>
+      <title>Search the Chart Repository</title>
+      <link>/helm_root/helm_nginx/searchchart/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_nginx/searchchart/</guid>
+      <description>Now that our repository Chart list has been updated, we can search for Charts.
+To list all Charts:
+helm search  That should output something similiar to:
+NAME CHART VERSION APP VERSION DESCRIPTION stable/acs-engine-autoscaler 2.2.0 2.1.1 Scales worker... stable/aerospike 0.1.7 v3.14.1.2 A Helm chart... ...  You can see from the output that it dumped the list of all Charts it knows about. In some cases that may be useful, but an even more useful search would involve a keyword argument.</description>
+    </item>
+
+    <item>
+      <title>Add the Bitnami Repository</title>
+      <link>/helm_root/helm_nginx/addbitnamirepo/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_nginx/addbitnamirepo/</guid>
+      <description>In the last slide, we saw that NGINX offers many different products via the default Helm Chart repository, but the NGINX standalone web server is not one of them.
+After a quick web search, we discover that there is a Chart for the NGINX standalone web server available via the Bitnami Chart repository.
+To add the Bitnami Chart repo to our local list of searchable charts:
+helm repo add bitnami https://charts.</description>
+    </item>
+
+    <item>
+      <title>Install bitnami/nginx</title>
+      <link>/helm_root/helm_nginx/installnginx/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_nginx/installnginx/</guid>
+      <description>Installing the Bitnami standalone NGINX web server Chart involves us using the helm install command.
+When we install using Helm, we need to provide a deployment name, or a random one will be assigned to the deployment automatically.
+Challenge: How can you use Helm to deploy the bitnami/nginx chart?
+HINT: Use the helm utility to install the bitnami/nginx chart and specify the name mywebserver for the Kubernetes deployment. Consult the helm install documentation or run the helm install --help command to figure out the syntax</description>
+    </item>
+
+    <item>
+      <title>Clean Up</title>
+      <link>/helm_root/helm_nginx/cleaningup/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_nginx/cleaningup/</guid>
+      <description>To remove all the objects that the Helm Chart created, we can use Helm delete.
+Before we delete it though, we can verify what we have running via the Helm list command:
+helm list  You should see output similar to below, which show that mywebserver is installed:
+NAME REVISION UPDATED STATUS CHART APP VERSION mywebserver 1 Tue Nov 13 19:55:25 2018 DEPLOYED nginx-1.1.2 1.14.1  It was a lot of fun; we had some great times sending HTTP back and forth, but now its time to delete this deployment.</description>
+    </item>
+
+  </channel>
+</rss>

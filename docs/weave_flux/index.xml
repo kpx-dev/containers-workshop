@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GitOps with Weave Flux on Amazon Chatbot Workshop</title>
+    <link>/weave_flux/</link>
+    <description>Recent content in GitOps with Weave Flux on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 14 Oct 2018 19:56:14 -0400</lastBuildDate>
+
+	<atom:link href="/weave_flux/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Prereqs</title>
+      <link>/weave_flux/prereqs/</link>
+      <pubDate>Sun, 14 Oct 2018 19:56:14 -0400</pubDate>
+
+      <guid>/weave_flux/prereqs/</guid>
+      <description>Is helm installed? We will use helm to install Weave Flux and a sample Helm chart. Check to see if helm is installed:
+helm version  If helm is not found, see installing helm for instructions.
+
+Does S3 artifact bucket exist and are IAM service roles created? AWS CodePipeline and AWS CodeBuild both need AWS Identity and Access Management (IAM) service roles to create a Docker image build pipeline.</description>
+    </item>
+
+    <item>
+      <title>GitHub Setup</title>
+      <link>/weave_flux/githubsetup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/githubsetup/</guid>
+      <description>We are going to create 2 GitHub repositories. One will be used for a sample application that will trigger a Docker image build. Another will be used to hold Kubernetes manifests that Weave Flux deploys into the cluster. Note this is a pull based method compared to other continuous deployment tools that push to Kubernetes.
+Create the sample application repository by clicking here.
+Fill in the form with repository name, description, and check initializing the repository with a README as shown below and click Create repository.</description>
+    </item>
+
+    <item>
+      <title>Install Weave Flux</title>
+      <link>/weave_flux/installweaveflux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/installweaveflux/</guid>
+      <description>Now we will use Helm to install Weave Flux into our cluster and enable it to interact with our Kubernetes configuration GitHub repo.
+First, install the Flux Custom Resource Definition:
+kubectl apply -f https://raw.githubusercontent.com/fluxcd/flux/helm-0.10.1/deploy-helm/flux-helm-release-crd.yaml  Check that Tiller is installed.
+helm ls  When tiller has already been installed, this command should either return a list of helm charts that have already been deployed or nothing.
+If you get the message Error: could not find tiller, see installing helm for instructions.</description>
+    </item>
+
+    <item>
+      <title>Create Image with CodePipeline</title>
+      <link>/weave_flux/codepipeline/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/codepipeline/</guid>
+      <description>Now we are going to create the AWS CodePipeline using AWS CloudFormation. This pipeline will be used to build a Docker image from your GitHub source repo (eks-example). Note that this does not deploy the image. Weave Flux will handle that.
+CloudFormation is an infrastructure as code (IaC) tool which provides a common language for you to describe and provision all the infrastructure resources in your cloud environment. CloudFormation allows you to use a simple text file to model and provision, in an automated and secure manner, all the resources needed for your applications across all regions and accounts.</description>
+    </item>
+
+    <item>
+      <title>Deploy from Manifests</title>
+      <link>/weave_flux/deploymentmanifests/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/deploymentmanifests/</guid>
+      <description>Now we are ready to use Weave Flux to deploy the hello world application into our Amazon EKS cluster. To do this we will clone our GitHub config repository (k8s-config) and then commit Kubernetes manifests to deploy.
+Update the username (YOURUSER) below to match your GitHub user name.
+ cd .. git clone https://github.com/YOURUSER/k8s-config.git cd k8s-config mkdir charts namespaces releases workloads  Create a namespace Kubernetes manifest.
+cat &amp;lt;&amp;lt; EOF &amp;gt; namespaces/eks-example.</description>
+    </item>
+
+    <item>
+      <title>Deploy from Helm</title>
+      <link>/weave_flux/deploymenthelm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/deploymenthelm/</guid>
+      <description>You can use this same approach to deploy Helm charts. These charts can exist within the configuration Git repository (k8s-config), or hosted from an external chart repository. In this example we will use an external chart to keep things simple.
+In your k8s-config directory, create a namespace manifest.
+The git pull command ensures we have the latest configuration in case Flux modified anything.
+ cd ../k8s-config git pull cat &amp;lt;&amp;lt; EOF &amp;gt; namespaces/nginx.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/weave_flux/cleanup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/cleanup/</guid>
+      <description>Congratulations on completing the GitOps with Weave Flux module.
+This module is not used in subsequent steps, so you can remove the resources now, or at the end of the workshop.
+First, delete all images from the Amazon ECR Repository.
+Next, go to the CloudFormation Console and delete the stack used to deploy the image build CodePipeline
+Now, delete Weave Flux and your load balanced services
+helm delete flux --purge kubectl delete ns flux kubectl delete crd helmreleases.</description>
+    </item>
+
+    <item>
+      <title></title>
+      <link>/weave_flux/app.files/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/weave_flux/app.files/</guid>
+      <description> Hello World  Hello World! Server&amp;nbsp;address: server_address
+Server&amp;nbsp;name: server_hostname
+Date: server_date
+URI: server_url
+ </description>
+    </item>
+
+  </channel>
+</rss>

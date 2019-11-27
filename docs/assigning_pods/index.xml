@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Assigning Pods to Nodes on Amazon Chatbot Workshop</title>
+    <link>/assigning_pods/</link>
+    <description>Recent content in Assigning Pods to Nodes on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Apr 2019 00:00:00 -0300</lastBuildDate>
+
+	<atom:link href="/assigning_pods/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>nodeSelector</title>
+      <link>/assigning_pods/node_selector/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/assigning_pods/node_selector/</guid>
+      <description>nodeSelector is the simplest recommended form of node selection constraint. nodeSelector is a field of PodSpec. It specifies a map of key-value pairs. For the pod to be eligible to run on a node, the node must have each of the indicated key-value pairs as labels (it can have additional labels as well). The most common usage is one key-value pair.
+Attach a label to the node Run kubectl get nodes to get the names of your cluster’s nodes.</description>
+    </item>
+
+    <item>
+      <title>Affinity and anti-affinity</title>
+      <link>/assigning_pods/affinity/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/assigning_pods/affinity/</guid>
+      <description>Affinity and anti-affinity nodeSelector provides a very simple way to constrain pods to nodes with particular labels. The affinity/anti-affinity feature, currently in beta, greatly extends the types of constraints you can express. The key enhancements are:
+ The language is more expressive (not just “AND of exact match”) You can indicate that the rule is “soft”/“preference” rather than a hard requirement, so if the scheduler can’t satisfy it, the pod will still be scheduled You can constrain against labels on other pods running on the node (or other topological domain), rather than against labels on the node itself, which allows rules about which pods can and cannot be co-located  The affinity feature consists of two types of affinity, “node affinity” and “inter-pod affinity/anti-affinity”.</description>
+    </item>
+
+    <item>
+      <title>More Practical use-cases</title>
+      <link>/assigning_pods/affinity_usecases/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/assigning_pods/affinity_usecases/</guid>
+      <description>More Practical Use-cases AntiAffinity can be even more useful when they are used with higher level collections such as ReplicaSets, StatefulSets, Deployments, etc. One can easily configure that a set of workloads should be co-located in the same defined topology, eg., the same node.
+Always co-located in the same node In a three node cluster, a web application has in-memory cache such as redis. We want the web-servers to be co-located with the cache as much as possible.</description>
+    </item>
+
+    <item>
+      <title>Clean Up</title>
+      <link>/assigning_pods/cleaning/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/assigning_pods/cleaning/</guid>
+      <description> Cleaning up To delete the resources used in this chapter:
+kubectl delete -f ~/environment/pod-with-node-affinity.yaml kubectl delete -f ~/environment/redis-with-node-affinity.yaml kubectl delete -f ~/environment/web-with-node-affinity.yaml  </description>
+    </item>
+
+  </channel>
+</rss>

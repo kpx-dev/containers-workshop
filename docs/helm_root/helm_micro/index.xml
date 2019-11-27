@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy Example Microservices Using Helm on Amazon Chatbot Workshop</title>
+    <link>/helm_root/helm_micro/</link>
+    <description>Recent content in Deploy Example Microservices Using Helm on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 08:30:11 -0700</lastBuildDate>
+
+	<atom:link href="/helm_root/helm_micro/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Create a Chart</title>
+      <link>/helm_root/helm_micro/create_chart/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_micro/create_chart/</guid>
+      <description>Helm charts have a structure similar to:
+/eksdemo /Chart.yaml # a description of the chart /values.yaml # defaults, may be overridden during install or upgrade /charts/ # May contain subcharts /templates/ # the template files themselves ...  We&amp;rsquo;ll follow this template, and create a new chart called eksdemo with the following commands:
+cd ~/environment helm create eksdemo  </description>
+    </item>
+
+    <item>
+      <title>Customize Defaults</title>
+      <link>/helm_root/helm_micro/customize/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_micro/customize/</guid>
+      <description>If you look in the newly created eksdemo directory, you&amp;rsquo;ll see several files and directories. Specifically, inside the /templates directory, you&amp;rsquo;ll see:
+ NOTES.txt: The “help text” for your chart. This will be displayed to your users when they run helm install. deployment.yaml: A basic manifest for creating a Kubernetes deployment service.yaml: A basic manifest for creating a service endpoint for your deployment _helpers.tpl: A place to put template helpers that you can re-use throughout the chart  We&amp;rsquo;re actually going to create our own files, so we&amp;rsquo;ll delete these boilerplate files</description>
+    </item>
+
+    <item>
+      <title>Deploy the eksdemo Chart</title>
+      <link>/helm_root/helm_micro/deploy/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_micro/deploy/</guid>
+      <description>Use the dry-run flag to test our templates To test the syntax and validity of the Chart without actually deploying it, we&amp;rsquo;ll use the dry-run flag.
+The following command will build and output the rendered templates without installing the Chart:
+helm install --debug --dry-run --name workshop ~/environment/eksdemo  Confirm that the values created by the template look correct.
+Deploy the chart Now that we have tested our template, lets install it.</description>
+    </item>
+
+    <item>
+      <title>Test the Service</title>
+      <link>/helm_root/helm_micro/service/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_micro/service/</guid>
+      <description>To test the service our eksdemo Chart created, we&amp;rsquo;ll need to get the name of the ELB endpoint that was generated when we deployed the Chart:
+kubectl get svc ecsdemo-frontend -o jsonpath=&amp;quot;{.status.loadBalancer.ingress[*].hostname}&amp;quot;; echo  Copy that address, and paste it into a new tab in your browser. You should see something similar to:</description>
+    </item>
+
+    <item>
+      <title>Rolling Back</title>
+      <link>/helm_root/helm_micro/rolling_back/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_micro/rolling_back/</guid>
+      <description>Mistakes will happen during deployment, and when they do, Helm makes it easy to undo, or &amp;ldquo;roll back&amp;rdquo; to the previously deployed version.
+Update the demo application chart with a breaking change Open values.yaml and modify the image name under nodejs.image to brentley/ecsdemo-nodejs-non-existing. This image does not exist, so this will break our deployment.
+Deploy the updated demo application chart:
+helm upgrade workshop ~/environment/eksdemo  The rolling upgrade will begin by creating a new nodejs pod with the new image.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/helm_root/helm_micro/cleanup/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_micro/cleanup/</guid>
+      <description>To delete the workshop release, run:
+helm del --purge workshop  </description>
+    </item>
+
+  </channel>
+</rss>

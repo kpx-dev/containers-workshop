@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lab 1: Container on Containers Workshop</title>
+    <link>/container/</link>
+    <description>Recent content in Lab 1: Container on Containers Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/container/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Clone container repo</title>
+      <link>/container/clone-container-repo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/container/clone-container-repo/</guid>
+      <description>Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region
+ Click on Services Drop down, type Cloud9.
+ There should be an existing environment created for you called lab. Click on Open IDE.
+ Once launched, go to a Terminal tab:
+  Clone repo and cd into it git clone https://github.com/kienpham2000/docker-example.git cd docker-example  Output will look like this
+admin:~/environment $ git clone https://github.</description>
+    </item>
+    
+    <item>
+      <title>Docker build &amp; run</title>
+      <link>/container/docker-build-run/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/container/docker-build-run/</guid>
+      <description>Build the Docker image docker build -t web .  Output
+admin:~/environment/docker-example (master) $ docker build -t web . Sending build context to Docker daemon 65.54kB Step 1/2 : FROM nginx:alpine ---&amp;gt; b6753551581f Step 2/2 : COPY index.html /usr/share/nginx/html ---&amp;gt; Using cache ---&amp;gt; d44b90c272d6 Successfully built d44b90c272d6 Successfully tagged web:latest  Run the container docker run -p 80:80 --name web web  Verify the container is running Create a new Terminal tab</description>
+    </item>
+    
+    <item>
+      <title>View the container content</title>
+      <link>/container/view-page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/container/view-page/</guid>
+      <description>Allow your laptop to access EC2 port 80  Go to EC2 / Instances Click on the one running instance Click on Security groups and Inbound / Edit. Allow port 80 to My IP and Save.  Go back to Cloud 9, get the EC2 Public IP curl 169.254.169.254/latest/meta-data/public-ipv4; echo  Open the IP in a new browser tab You should see a text: Hello RTS team!
+Stop the container Try stopping the container and refresh the last page, it should not work anymore.</description>
+    </item>
+    
+    <item>
+      <title>Create ECR Repo</title>
+      <link>/container/ecr/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/container/ecr/</guid>
+      <description>Go to ECR service, Get Started. Type in web and click on Create repository.  Click on web / View push commands. Go ahead and copy and paste each command. You will run these commands at Cloud9 Terminal. Note: the first command make sure to include $() Output  Now if you close the push command and refresh the registry, you will see latest image tag pushed to the repo.</description>
+    </item>
+    
+    <item>
+      <title>Create ECS Cluster</title>
+      <link>/container/ecs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/container/ecs/</guid>
+      <description>Go to ECS service Click on Get started button  Click on Configure button at the custom section. For the Image, open new browser tab and go to ECR and it&amp;rsquo;s under URI, then append :latest at the end of the URI.  At Step 2, leave everything default and click Next  At Step 3, leave everything default and click Next  At Step 4, review to make sure everything looks good, click Create  After about 3 minutes, all 9 steps will be completed.</description>
+    </item>
+    
+    <item>
+      <title>View Fargate Container</title>
+      <link>/container/view-ecs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/container/view-ecs/</guid>
+      <description> Click on Tasks tab from ECS default cluster, you&amp;rsquo;ll see one container running on Fargate. If you go back to EC2 and check, there&amp;rsquo;s no new EC2 instance launched!  Click into the link under Task column Under Network, you&amp;rsquo;ll see the Public IP. Open this IP in a new browser tab, you will see the content of your container running on Fargate serverlessly!   </description>
+    </item>
+    
+  </channel>
+</rss>

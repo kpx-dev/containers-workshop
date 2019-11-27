@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine Learning using Kubeflow on Amazon Chatbot Workshop</title>
+    <link>/kubeflow/</link>
+    <description>Recent content in Machine Learning using Kubeflow on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 Aug 2019 00:00:00 -0800</lastBuildDate>
+
+	<atom:link href="/kubeflow/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Install</title>
+      <link>/kubeflow/install/</link>
+      <pubDate>Thu, 22 Aug 2019 00:00:00 -0800</pubDate>
+
+      <guid>/kubeflow/install/</guid>
+      <description>In this chapter, we will install Kubeflow on Amazon EKS cluster. The cluster creation steps are outlined in Launch EKS chapter.
+Install Kubeflow on Amazon EKS Download 0.6.1+ release of kfctl. This binary will allow you to install Kubeflow on Amazon EKS:
+curl --silent --location &amp;quot;https://github.com/kubeflow/kubeflow/releases/download/v0.6.1/kfctl_v0.6.1_$(uname -s).tar.gz&amp;quot; | tar xz -C /tmp sudo mv -v /tmp/kfctl /usr/local/bin  Download Kubeflow configuration file:
+CONFIG=~/environment/kfctl_aws.yaml curl -Lo ${CONFIG} https://raw.githubusercontent.com/kubeflow/kubeflow/v0.6.1/bootstrap/config/kfctl_aws.yaml  Customize this configuration file for AWS region and IAM role for your worker nodes:</description>
+    </item>
+
+    <item>
+      <title>Kubeflow Dashboard</title>
+      <link>/kubeflow/dashboard/</link>
+      <pubDate>Thu, 22 Aug 2019 00:00:00 -0800</pubDate>
+
+      <guid>/kubeflow/dashboard/</guid>
+      <description>Kubeflow Dashboard Get Kubeflow service endpoint:
+kubectl get ingress -n istio-system -o jsonpath=&#39;{.items[0].status.loadBalancer.ingress[0].hostname}&#39;  Access the endpoint address in a browser to see Kubeflow dashboard:
+Click on Start Setup
+Specify the namespace as eksworkshop
+Click on Finish to view the dashboard</description>
+    </item>
+
+    <item>
+      <title>Jupyter Notebook</title>
+      <link>/kubeflow/jupyter/</link>
+      <pubDate>Mon, 26 Aug 2019 00:00:00 -0800</pubDate>
+
+      <guid>/kubeflow/jupyter/</guid>
+      <description>Jupyter Notebook using Kubeflow on Amazon EKS The Jupyter Notebook is an open-source web application that allows you to create and share documents that contain live code, equations, visualizations and narrative text. It is often used for data cleaning and transformation, numerical simulation, statistical modeling, data visualization, machine learning, and more.
+In Kubeflow dashboard, click on Create a new Notebook server:
+Select the namespace created in previous step:
+This pre-populates the namespace field on the dashboard.</description>
+    </item>
+
+    <item>
+      <title>Model training</title>
+      <link>/kubeflow/training/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 -0800</pubDate>
+
+      <guid>/kubeflow/training/</guid>
+      <description>Model Training While Jupyter notebook is good for interactive model training, you may like to package the training code as Docker image and run it in Amazon EKS cluster.
+This chapter explains how to build a training model for Fashion-MNIST dataset using TensorFlow and Keras on Amazon EKS. This databset contains 70,000 grayscale images in 10 categories and is meant to be a drop-in replace of MNIST.
+Docker image You can use a pre-built Docker image seedjeffwan/mnist_tensorflow_keras:1.</description>
+    </item>
+
+    <item>
+      <title>Model inference</title>
+      <link>/kubeflow/inference/</link>
+      <pubDate>Tue, 27 Aug 2019 00:00:00 -0800</pubDate>
+
+      <guid>/kubeflow/inference/</guid>
+      <description>Model Inference After the model is trained and stored in S3 bucket, the next step is to use that model for inference.
+This chapter explains how to use the previously trained model and run inference using TensorFlow and Keras on Amazon EKS.
+Run inference pod A model from training was stored in the S3 bucket in previous section. Make sure S3_BUCKET and AWS_REGION environment variables are set correctly.
+curl -LO https://eksworkshop.</description>
+    </item>
+
+  </channel>
+</rss>

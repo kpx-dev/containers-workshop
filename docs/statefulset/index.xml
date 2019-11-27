@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stateful containers using StatefulSets on Amazon Chatbot Workshop</title>
+    <link>/statefulset/</link>
+    <description>Recent content in Stateful containers using StatefulSets on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 08:30:11 -0700</lastBuildDate>
+
+	<atom:link href="/statefulset/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Define Storageclass</title>
+      <link>/statefulset/storageclass/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/storageclass/</guid>
+      <description>Introduction Dynamic Volume Provisioning allows storage volumes to be created on-demand. StorageClass should be pre-created to define which provisoner should be used and what parameters should be passed when dynamic provisioning is invoked. (See parameters for AWS EBS)
+Define Storage Class Copy/Paste the following commands into your Cloud9 Terminal.
+mkdir ~/environment/templates cd ~/environment/templates wget https://eksworkshop.com/statefulset/storageclass.files/mysql-storageclass.yml  Check the configuration of mysql-storageclass.yml file by following command.
+cat ~/environment/templates/mysql-storageclass.yml  You can see provisioner is kubernetes.</description>
+    </item>
+
+    <item>
+      <title>Create ConfigMap</title>
+      <link>/statefulset/configmap/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/configmap/</guid>
+      <description>Introduction ConfigMap allow you to decouple configuration artifacts and secrets from image content to keep containerized applications portable. Using ConfigMap, you can independently control MySQL configuration.
+Create ConfigMap Copy/Paste the following commands into your Cloud9 Terminal.
+cd ~/environment/templates wget https://eksworkshop.com/statefulset/configmap.files/mysql-configmap.yml  Check the configuration of mysql-configmap.yml file by following command.
+cat ~/environment/templates/mysql-configmap.yml  ConfigMap stores master.cnf, slave.cnf and pass them when initializing master and slave pods defined in statefulset. master.</description>
+    </item>
+
+    <item>
+      <title>Create Services</title>
+      <link>/statefulset/services/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/services/</guid>
+      <description>Introduction Kubernetes Service defines a logical set of Pods and a policy by which to access them. Service can be exposed in different ways by specifying a type in the serviceSpec. StatefulSet currently requires a Headless Service to control the domain of its Pods, directly reach each Pod with stable DNS entries. By specifying &amp;ldquo;None&amp;rdquo; for the clusterIP, you can create Headless Service.
+Create Services Copy/Paste the following commands into your Cloud9 Terminal.</description>
+    </item>
+
+    <item>
+      <title>Create StatefulSet</title>
+      <link>/statefulset/statefulset/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/statefulset/</guid>
+      <description>Introduction StatefulSet consists of serviceName, replicas, template and volumeClaimTemplates. serviceName is &amp;ldquo;mysql&amp;rdquo;, headless service we created in previous section, replicas is 3, the desired number of pod, template is the configuration of pod, volumeClaimTemplates is to claim volume for pod based on storageClassName, gp2 that we created in &amp;ldquo;Define Storageclass&amp;rdquo; section. Percona Xtrabackup is in template to clone source MySQL server to its slaves.
+Create StatefulSet Copy/Paste the following commands into your Cloud9 Terminal.</description>
+    </item>
+
+    <item>
+      <title>Test MySQL</title>
+      <link>/statefulset/testmysql/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/testmysql/</guid>
+      <description>You can use mysql-client to send some data to the master, mysql-0.mysql by following command.
+kubectl run mysql-client --image=mysql:5.7 -i --rm --restart=Never --\ mysql -h mysql-0.mysql &amp;lt;&amp;lt;EOF CREATE DATABASE test; CREATE TABLE test.messages (message VARCHAR(250)); INSERT INTO test.messages VALUES (&#39;hello, from mysql-client&#39;); EOF  Run the following to test slaves (mysql-read) received the data.
+kubectl run mysql-client --image=mysql:5.7 -it --rm --restart=Never --\ mysql -h mysql-read -e &amp;quot;SELECT * FROM test.messages&amp;quot;  The output should look like this.</description>
+    </item>
+
+    <item>
+      <title>Test Failure</title>
+      <link>/statefulset/testfailure/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/testfailure/</guid>
+      <description>Unhealthy container MySQL container uses readiness probe by running mysql -h 127.0.0.1 -e &amp;lsquo;SELECT 1&amp;rsquo; on the server to make sure MySQL server is still active. Open a new terminal and simulate MySQL as being unresponsive by following command.
+kubectl exec mysql-2 -c mysql -- mv /usr/bin/mysql /usr/bin/mysql.off  This command renames the /usr/bin/mysql command so that readiness probe can&amp;rsquo;t find it. During the next health check, the pod should report one of it&amp;rsquo;s containers is not healthy.</description>
+    </item>
+
+    <item>
+      <title>Test Scaling</title>
+      <link>/statefulset/testscaling/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/testscaling/</guid>
+      <description>More slaves can be added to the MySQL Cluster to increase read capacity. This can be done by following command.
+kubectl scale statefulset mysql --replicas=5  You can see the message that statefulset &amp;ldquo;mysql&amp;rdquo; scaled.
+statefulset &amp;quot;mysql&amp;quot; scaled  Watch the progress of ordered and graceful scaling.
+kubectl get pods -l app=mysql -w  NAME READY STATUS RESTARTS AGE mysql-0 2/2 Running 0 1d mysql-1 2/2 Running 0 1d mysql-2 2/2 Running 0 24m mysql-3 0/2 Init:0/2 0 8s mysql-3 0/2 Init:1/2 0 9s mysql-3 0/2 PodInitializing 0 11s mysql-3 1/2 Running 0 12s mysql-3 2/2 Running 0 16s mysql-4 0/2 Pending 0 0s mysql-4 0/2 Pending 0 0s mysql-4 0/2 Init:0/2 0 0s mysql-4 0/2 Init:1/2 0 10s mysql-4 0/2 PodInitializing 0 11s mysql-4 1/2 Running 0 12s mysql-4 2/2 Running 0 17s  It may take few minutes to launch all the pods.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/statefulset/cleanup/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/statefulset/cleanup/</guid>
+      <description>First delete the StatefulSet. This will also terminates the pods. It may take some while.
+kubectl delete statefulset mysql  Verify there are no pods running by following command.
+kubectl get pods -l app=mysql  No resources found.  Delete ConfigMap, Service and PVC by following command.
+kubectl delete configmap,service,pvc -l app=mysql  configmap &amp;quot;mysql-config&amp;quot; deleted service &amp;quot;mysql&amp;quot; deleted service &amp;quot;mysql-read&amp;quot; deleted persistentvolumeclaim &amp;quot;data-mysql-0&amp;quot; deleted persistentvolumeclaim &amp;quot;data-mysql-1&amp;quot; deleted persistentvolumeclaim &amp;quot;data-mysql-2&amp;quot; deleted  Congratulation!</description>
+    </item>
+
+  </channel>
+</rss>

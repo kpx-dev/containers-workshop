@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tracing with X-Ray on Amazon Chatbot Workshop</title>
+    <link>/x-ray/</link>
+    <description>Recent content in Tracing with X-Ray on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+
+	<atom:link href="/x-ray/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Modify IAM Role</title>
+      <link>/x-ray/role/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/x-ray/role/</guid>
+      <description>In order for the X-Ray daemon to communicate with the service, we need to add a policy to the worker nodes&amp;rsquo; AWS Identity and Access Management (IAM) role.
+First, we will need to ensure the Role Name our workers use is set in our environment:
+test -n &amp;quot;$ROLE_NAME&amp;quot; &amp;amp;&amp;amp; echo ROLE_NAME is &amp;quot;$ROLE_NAME&amp;quot; || echo ROLE_NAME is not set    Expand here if you need to export the Role Name   If ROLE_NAME is not set, please review: /eksctl/test/</description>
+    </item>
+
+    <item>
+      <title>Deploy X-Ray DaemonSet</title>
+      <link>/x-ray/x-ray-daemon/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/x-ray/x-ray-daemon/</guid>
+      <description>Now that we have modified the IAM role for the worker nodes to permit write operations to the X-Ray service, we are going to deploy the X-Ray DaemonSet to the EKS cluster. The X-Ray daemon will be deployed to each worker node in the EKS cluster. For reference, see the example implementation used in this module.
+The AWS X-Ray SDKs are used to instrument your microservices. When using the DaemonSet in the example implementation, you need to configure it to point to xray-service.</description>
+    </item>
+
+    <item>
+      <title>Deploy Example Microservices</title>
+      <link>/x-ray/microservices/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/x-ray/microservices/</guid>
+      <description>We now have the foundation in place to deploy microservices, which are instrumented with X-Ray SDKs, to the EKS cluster.
+In this step, we are going to deploy example front-end and back-end microservices to the cluster. The example services are already instrumented using the X-Ray SDK for Go. Currently, X-Ray has SDKs for Go, Python, Node.js, Ruby, .NET and Java.
+kubectl apply -f https://eksworkshop.com/x-ray/sample-front.files/x-ray-sample-front-k8s.yml kubectl apply -f https://eksworkshop.com/x-ray/sample-back.files/x-ray-sample-back-k8s.yml  To review the status of the deployments, you can run:</description>
+    </item>
+
+    <item>
+      <title>X-Ray Console</title>
+      <link>/x-ray/x-ray/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/x-ray/x-ray/</guid>
+      <description>We now have the example microservices deployed, so we are going to investigate our Service Graph and Traces in X-Ray section of the AWS Management Console.
+The Service map in the console provides a visual representation of the steps identified by X-Ray for a particular trace. Each resource that sends data to X-Ray within the same context appears as a service in the graph. In the example below, we can see that the x-ray-sample-front-k8s service is processing 39 transactions per minute with an average latency of 0.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/x-ray/cleanup/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+
+      <guid>/x-ray/cleanup/</guid>
+      <description>Congratulations on completing the Tracing with X-Ray module.
+The content for this module was based on the Application Tracing on Kubernetes with AWS X-Ray blog post.
+This module is not used in subsequent steps, so you can remove the resources now or at the end of the workshop.
+Delete the Kubernetes example microservices deployed:
+kubectl delete deployments x-ray-sample-front-k8s x-ray-sample-back-k8s kubectl delete services x-ray-sample-front-k8s x-ray-sample-back-k8s  Delete the X-Ray DaemonSet:
+kubectl delete -f https://eksworkshop.</description>
+    </item>
+
+  </channel>
+</rss>

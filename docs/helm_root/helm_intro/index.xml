@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Install Helm on EKS on Amazon Chatbot Workshop</title>
+    <link>/helm_root/helm_intro/</link>
+    <description>Recent content in Install Helm on EKS on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 08:30:11 -0700</lastBuildDate>
+
+	<atom:link href="/helm_root/helm_intro/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Install Helm CLI</title>
+      <link>/helm_root/helm_intro/install/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/helm_root/helm_intro/install/</guid>
+      <description>Before we can get started configuring helm we&amp;rsquo;ll need to first install the command line tools that you will interact with. To do this run the following.
+cd ~/environment curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get &amp;gt; get_helm.sh chmod +x get_helm.sh ./get_helm.sh  Once you install helm, the command will prompt you to run &amp;lsquo;helm init&amp;rsquo;. Do not run &amp;lsquo;helm init&amp;rsquo;. Follow the instructions to configure helm using Kubernetes RBAC and then install tiller as specified below If you accidentally run &amp;lsquo;helm init&amp;rsquo;, you can safely uninstall tiller by running &amp;lsquo;helm reset &amp;ndash;force&amp;rsquo;</description>
+    </item>
+
+  </channel>
+</rss>

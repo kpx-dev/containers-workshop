@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploying Jenkins on Amazon Chatbot Workshop</title>
+    <link>/jenkins/</link>
+    <description>Recent content in Deploying Jenkins on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 07 Aug 2018 08:30:11 -0700</lastBuildDate>
+
+	<atom:link href="/jenkins/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Deploy Jenkins</title>
+      <link>/jenkins/deploy/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/jenkins/deploy/</guid>
+      <description>With our Storage Class configured we then need to create our jenkins setup. To do this we&amp;rsquo;ll just use the helm cli with a couple flags.
+In a production system you should be using a values.yaml file so that you can manage the drift as you need to update releases
+ Install Jenkins helm install stable/jenkins --set rbac.create=true,master.servicePort=80 --name cicd  The output of this command will give you some additional information such as the admin password and the way to get the host name of the ELB that was provisioned.</description>
+    </item>
+
+    <item>
+      <title>Logging In</title>
+      <link>/jenkins/loggingin/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/jenkins/loggingin/</guid>
+      <description>Now that we have the ELB address of your jenkins instance we can go an navigate to that address in another window.
+From here we can log in using:
+   Username Password     admin command from below    printf $(kubectl get secret --namespace default cicd-jenkins -o jsonpath=&amp;quot;{.data.jenkins-admin-password}&amp;quot; | base64 --decode);echo  The output of this command will give you the default password for your admin user.</description>
+    </item>
+
+    <item>
+      <title>Cleanup</title>
+      <link>/jenkins/cleanup/</link>
+      <pubDate>Tue, 07 Aug 2018 08:30:11 -0700</pubDate>
+
+      <guid>/jenkins/cleanup/</guid>
+      <description>To delete Jenkins, run:
+helm del --purge cicd  </description>
+    </item>
+
+  </channel>
+</rss>

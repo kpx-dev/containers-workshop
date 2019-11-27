@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Exposing a Service on Amazon Chatbot Workshop</title>
+    <link>/exposing_service/</link>
+    <description>Recent content in Exposing a Service on Amazon Chatbot Workshop</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Apr 2019 00:00:00 -0300</lastBuildDate>
+
+	<atom:link href="/exposing_service/index.xml" rel="self" type="application/rss+xml" />
+
+
+    <item>
+      <title>Connecting Applications with Services</title>
+      <link>/exposing_service/connecting/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/connecting/</guid>
+      <description>Before discussing the Kubernetes approach to networking, it is worthwhile to contrast it with the “normal” way networking works with Docker.
+By default, Docker uses host-private networking, so containers can talk to other containers only if they are on the same machine. In order for Docker containers to communicate across nodes, there must be allocated ports on the machine’s own IP address, which are then forwarded or proxied to the containers.</description>
+    </item>
+
+    <item>
+      <title>Accessing the Service</title>
+      <link>/exposing_service/accessing/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/accessing/</guid>
+      <description>Accessing the Service Kubernetes supports 2 primary modes of finding a Service - environment variables and DNS. The former works out of the box while the latter requires the CoreDNS cluster addon.
+Environment Variables When a Pod runs on a Node, the kubelet adds a set of environment variables for each active Service. This introduces an ordering problem. To see why, inspect the environment of your running nginx Pods (your Pod name will be different): Let&amp;rsquo;s view the pods again:</description>
+    </item>
+
+    <item>
+      <title>Exposing the Service</title>
+      <link>/exposing_service/exposing/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/exposing/</guid>
+      <description>Exposing the Service For some parts of your applications you may want to expose a Service onto an external IP address. Kubernetes supports two ways of doing this: NodePorts and LoadBalancers.
+kubectl get svc my-nginx  Output
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE my-nginx ClusterIP 10.100.225.196 &amp;lt;none&amp;gt; 80/TCP 33m  Currently the Service does not have an External IP, so let’s now recreate the Service to use a cloud load balancer, just change the Type of my-nginx Service from ClusterIP to LoadBalancer:</description>
+    </item>
+
+    <item>
+      <title>Ingress</title>
+      <link>/exposing_service/ingress/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/ingress/</guid>
+      <description>Ingress What is Ingress? Ingress, added in Kubernetes v1.1, exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. Traffic routing is controlled by rules defined on the Ingress resource.
+Internet---[ Ingress ]--|--|--[ Services ]
+An Ingress can be configured to give services externally-reachable URLs, load balance traffic, terminate SSL, and offer name based virtual hosting. An Ingress controller is responsible for fulfilling the Ingress, usually with a loadbalancer, though it may also configure your edge router or additional frontends to help handle the traffic.</description>
+    </item>
+
+    <item>
+      <title>Ingress Controller</title>
+      <link>/exposing_service/ingress_controller/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/ingress_controller/</guid>
+      <description>Ingress Controllers In order for the Ingress resource to work, the cluster must have an ingress controller running.
+Unlike other types of controllers which run as part of the kube-controller-manager binary, Ingress controllers are not started automatically with a cluster. Let&amp;rsquo;s see some options:</description>
+    </item>
+
+    <item>
+      <title>Ingress Controller ALB</title>
+      <link>/exposing_service/ingress_controller_alb/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/ingress_controller_alb/</guid>
+      <description>ALB Ingress Controller Deploy RBAC Roles and RoleBindings needed by the AWS ALB Ingress controller:
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/rbac-role.yaml  Download the AWS ALB Ingress controller YAML into a local file:
+curl -sS &amp;quot;https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/alb-ingress-controller.yaml&amp;quot; &amp;gt; alb-ingress-controller.yaml  Edit the AWS ALB Ingress controller YAML to include the clusterName of the Kubernetes (or) Amazon EKS cluster. Edit the –cluster-name flag to be the real name of our Kubernetes (or) Amazon EKS cluster.</description>
+    </item>
+
+    <item>
+      <title>Clean Up</title>
+      <link>/exposing_service/cleaning/</link>
+      <pubDate>Tue, 09 Apr 2019 00:00:00 -0300</pubDate>
+
+      <guid>/exposing_service/cleaning/</guid>
+      <description> Cleaning up To delete the resources used in this chapter:
+kubectl delete -f ~/environment/run-my-nginx.yaml kubectl delete -f ~/environment/pod-with-node-affinity.yaml kubectl delete -f ~/environment/redis-with-node-affinity.yaml kubectl delete -f ~/environment/web-with-node-affinity.yaml kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/2048/2048-deployment.yaml kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/2048/2048-service.yaml kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/2048/2048-ingress.yaml kubectl delete -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/2048/2048-namespace.yaml kubectl delete -f ~/environment/alb-ingress-controller.yaml  </description>
+    </item>
+
+  </channel>
+</rss>
