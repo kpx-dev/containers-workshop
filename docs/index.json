@@ -14,18 +14,18 @@
 	"content": " Lab 1 Overview In this lab, we\u0026rsquo;ll create a simple Docker container, build and run it locally. Then we\u0026rsquo;ll push it to ECR and run it using ECS Fargate.\n"
 },
 {
-	"uri": "/container/clone-container-repo/",
-	"title": "Clone container repo",
-	"tags": [],
-	"description": "",
-	"content": "  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region\n Click on Services Drop down, type Cloud9.\n There should be an existing environment created for you called lab. Click on Open IDE.\n Once launched, go to a Terminal tab:\n  Clone repo and cd into it git clone https://github.com/kienpham2000/docker-example.git cd docker-example  Output will look like this\nadmin:~/environment $ git clone https://github.com/kienpham2000/docker-example.git Cloning into 'docker-example'... remote: Enumerating objects: 9, done. remote: Counting objects: 100% (9/9), done. remote: Compressing objects: 100% (7/7), done. remote: Total 9 (delta 1), reused 4 (delta 0), pack-reused 0 Unpacking objects: 100% (9/9), done.  "
-},
-{
 	"uri": "/serverless/clone-lambda-repo/",
 	"title": "Clone Lambda repo",
 	"tags": [],
 	"description": "",
 	"content": "  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region\n Click on Services Drop down, type Cloud9.\n There should be an existing environment created for you called lab. Click on Open IDE.\n Once launched, go to a Terminal tab:\n  Clone repo and cd into it git clone https://github.com/kienpham2000/lambda-example.git cd lambda-example  "
+},
+{
+	"uri": "/container/clone-container-repo/",
+	"title": "Clone container repo",
+	"tags": [],
+	"description": "",
+	"content": "  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region\n Click on Services Drop down, type Cloud9.\n There should be an existing environment created for you called lab. Click on Open IDE.\n Once launched, go to a Terminal tab:\n  Clone repo and cd into it git clone https://github.com/kienpham2000/docker-example.git cd docker-example  Output will look like this\nadmin:~/environment $ git clone https://github.com/kienpham2000/docker-example.git Cloning into 'docker-example'... remote: Enumerating objects: 9, done. remote: Counting objects: 100% (9/9), done. remote: Compressing objects: 100% (7/7), done. remote: Total 9 (delta 1), reused 4 (delta 0), pack-reused 0 Unpacking objects: 100% (9/9), done.  "
 },
 {
 	"uri": "/container/docker-build-run/",
@@ -95,7 +95,7 @@
 	"title": "Example of using CloudFormation Templates",
 	"tags": [],
 	"description": "",
-	"content": " Click below to add a CloudFormation Stack    Use these templates:       Template 1 example \u0026lt;a     href=\u0026ldquo;https://console.aws.amazon.com/cloudformation/home?#/stacks/create/review?stackName=\u0026amp;templateURL=https://s3.amazonaws.com/chatbotworkshop.com/templates/master/example1.yml\u0026quot; target=\u0026rdquo;_blank\u0026rdquo; class=\u0026ldquo;btn btn-default\u0026rdquo;\u0026gt;  Launch  |  Download  | | Template 2 example |  Launch  |  Download  | | Template 3 example |  Launch  |  Download  |\n"
+	"content": " Click below to add a CloudFormation Stack    Use these templates:       Template 1 example  Launch    Download     Template 2 example  Launch    Download     Template 3 example  Launch    Download      "
 },
 {
 	"uri": "/more_resources/",

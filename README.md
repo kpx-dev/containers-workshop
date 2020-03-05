@@ -25,6 +25,18 @@ or
 
 `npm run test` will test the built content for bad links
 
-#### View Hugo locally:
+#### Run Docker locally
+
+You can also skip all the above and run this within a container.
+
+  ```shell
+  # build the container
+  docker build -t lab .
+
+  # run the container
+  docker run -p 8080:8080 lab
+  ```
+
+#### View built site locally:
 
 Visit http://localhost:8080/ to see the site.
