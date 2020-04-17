@@ -10,4 +10,4 @@ weight: 1
 
 We'll learn about AWS Containers and Serverless offering.
 
-<strong>Click on labs on the left to get started.</strong>
+<strong>Let's get started by setting up Cloud9 IDE environment.</strong>

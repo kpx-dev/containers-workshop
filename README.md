@@ -1,4 +1,6 @@
-# Containers Workshop
+# AWS Containers / Serverless Workshop
+
+This repo is powering this site: https://containersworkshop.com/
 
 #### Install Hugo:
 On a mac:
