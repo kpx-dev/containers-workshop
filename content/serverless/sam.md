@@ -45,4 +45,4 @@ You will see output looks like this:
 
 #### Congrats!
 
-You are done with this lab.
+You are done with this lab (S3 file watcher).

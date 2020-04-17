@@ -1,9 +1,12 @@
 ---
-title: "Serverless Lab"
+title: "Serverless Labs"
 weight: 15
 chapter: true
 draft: false
 ---
 
-# Serverless Lab Overview
-In this lab, we'll create simple Lambda function that watch for new files being uploaded to S3. We'll deploy this Lambda using SAM.
+# Serverless Labs Overview
+This section contains 2 labs:
+
+1. **S3 file watcher** - Lambda will get triggered when a new file get uploaded to S3.
+1. **REST API** - Create a simple REST API running serverlessly on Lambda and served by API Gateway.
