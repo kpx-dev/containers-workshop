@@ -9,3 +9,7 @@ weight: 23
 1. Click into the link under **Task** column
 1. Under Network, you'll see the **Public IP**. Open this IP in a new browser tab, you will see the content of your container running on Fargate serverlessly!
 ![](/images/ecs-task-ip.png)
+
+#### Congrats!
+
+You are done with this lab.

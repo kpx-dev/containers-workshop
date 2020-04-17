@@ -1,9 +1,9 @@
 ---
-title: "Lab 2: Serverless"
+title: "Serverless Lab"
 weight: 15
 chapter: true
 draft: false
 ---
 
-# Lab 2 Overview
-In this lab, we'll a simple Lambda function that watch for new  files being uploaded to S3. We'll deploy this Lambda using SAM.
+# Serverless Lab Overview
+In this lab, we'll create simple Lambda function that watch for new files being uploaded to S3. We'll deploy this Lambda using SAM.

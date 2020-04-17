@@ -7,7 +7,11 @@
   </url>
   
   <url>
-    <loc>/container/</loc>
+    <loc>/cloud9/</loc>
+  </url>
+  
+  <url>
+    <loc>/containers/</loc>
   </url>
   
   <url>
@@ -15,15 +19,11 @@
   </url>
   
   <url>
-    <loc>/container/clone-container-repo/</loc>
+    <loc>/containers/clone-container-repo/</loc>
   </url>
   
   <url>
-    <loc>/container/docker-build-run/</loc>
-  </url>
-  
-  <url>
-    <loc>/serverless/</loc>
+    <loc>/containers/docker-build-run/</loc>
   </url>
   
   <url>
@@ -31,19 +31,23 @@
   </url>
   
   <url>
-    <loc>/container/view-page/</loc>
+    <loc>/serverless/</loc>
   </url>
   
   <url>
-    <loc>/container/ecr/</loc>
+    <loc>/containers/view-page/</loc>
   </url>
   
   <url>
-    <loc>/container/ecs/</loc>
+    <loc>/containers/ecr/</loc>
   </url>
   
   <url>
-    <loc>/container/view-ecs/</loc>
+    <loc>/containers/ecs/</loc>
+  </url>
+  
+  <url>
+    <loc>/containers/view-ecs/</loc>
   </url>
   
   <url>
@@ -57,10 +61,6 @@
   
   <url>
     <loc>/example_cf_templates/</loc>
-  </url>
-  
-  <url>
-    <loc>/more_resources/</loc>
   </url>
   
   <url>

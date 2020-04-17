@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Lab 2: Serverless on Containers Workshop</title>
+    <title>Serverless Lab on Containers / Serverless Workshop</title>
     <link>/serverless/</link>
-    <description>Recent content in Lab 2: Serverless on Containers Workshop</description>
+    <description>Recent content in Serverless Lab on Containers / Serverless Workshop</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -16,11 +16,9 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/serverless/clone-lambda-repo/</guid>
-      <description>  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region
+      <description>  Login to your AWS Account, make sure you are in the North Virginia (us-east-1) region.
  Click on Services Drop down, type Cloud9.
- There should be an existing environment created for you called lab. Click on Open IDE.
- Once launched, go to a Terminal tab:
-  Clone repo and cd into it git clone https://github.com/kienpham2000/lambda-example.git cd lambda-example  </description>
+ Select the workshop IDE. Click on Open IDE.  Once launched, Click on + icon and select New Terminal.   Clone repo and cd into it cd ~/environment &amp;amp;&amp;amp; git clone https://github.com/kienpham2000/lambda-example.git &amp;amp;&amp;amp; cd lambda-example  </description>
     </item>
     
     <item>
@@ -29,10 +27,9 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/serverless/sam/</guid>
-      <description>Create the S3 repo to store SAM artifact Since the S3 repo name must be unique globally, please postfix with your username
-aws s3api create-bucket --bucket serverless-lab-[your-username]  Upgrade SAM CLI to latest version Run the command below and press ENTER to continue. Once done, please open New Terminal
-./install-sam.sh  Package the template Don&amp;rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name.
-sam package --s3-bucket serverless-lab-[your-username] --s3-prefix lab --output-template-file template_packaged.</description>
+      <description>Create the S3 repo to store SAM artifact Since the S3 repo name must be unique globally, please postfix with your username. We&amp;rsquo;ll use this S3 bucket to store our built artifact.
+aws s3api create-bucket --bucket serverless-lab-[change-to-your-username]  Upgrade SAM CLI to latest version This can take up to 2-3 minutes to install all required packages.
+./install-packages.sh  Package the template Don&amp;rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name created earlier.</description>
     </item>
     
   </channel>

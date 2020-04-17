@@ -4,19 +4,19 @@ chapter: false
 weight: 14
 ---
 
-1. Login to your AWS Account, make sure you are in the **North Virginia (us-east-1)** region
+1. Login to your AWS Account, make sure you are in the **North Virginia (us-east-1)** region.
 
 1. Click on Services Drop down, type **Cloud9**.
 
-1. There should be an existing environment created for you called **lab**. Click on **Open IDE**.
+1. Select the **workshop** IDE. Click on **Open IDE**.
+![cloud9](/images/cloud9/open-ide.png)
 
-1. Once launched, go to a Terminal tab:
+1. Once launched, Click on **+** icon and select **New Terminal**.
+![New Terminal](/images/cloud9/new-terminal.png)
 
 #### Clone repo and cd into it
 ```
-git clone https://github.com/kienpham2000/docker-example.git
-
-cd docker-example
+cd ~/environment && git clone https://github.com/kienpham2000/docker-example.git && cd docker-example
 
 ```
 

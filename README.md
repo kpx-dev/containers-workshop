@@ -17,13 +17,10 @@ npm install
 npm run server
 ```
 
-or
-
-`npm run drafts` to see stubbed in draft pages.
-
-`npm run build` will build your content locally and output to `./public/`
-
-`npm run test` will test the built content for bad links
+#### Build
+```shell
+npm run build
+```
 
 #### Run Docker locally
 

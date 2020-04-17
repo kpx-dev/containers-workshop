@@ -24,7 +24,7 @@ Successfully tagged web:latest
 
 #### Run the container
 ```
-docker run -p 80:80 --name web web
+docker run -p 8080:80 web
 ```
 
 #### Verify the container is running
@@ -40,3 +40,7 @@ admin:~/environment $ docker ps
 CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
 eadc9b959908        web                 "nginx -g 'daemon of…"   33 seconds ago      Up 32 seconds       0.0.0.0:80->80/tcp   web
 ```
+
+#### View the UI locally
+You should be able to see the local webpage started by the container by clicking on **Preview**.
+![Cloud9 Preview](/images/cloud9/cloud9-preview.png)

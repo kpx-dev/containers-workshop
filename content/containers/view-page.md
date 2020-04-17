@@ -18,12 +18,12 @@ curl 169.254.169.254/latest/meta-data/public-ipv4; echo
 
 #### Open the IP in a new browser tab
 
-You should see a text: **Hello RTS team!**
+You should see a simple page being served by the container.
 
 #### Stop the container
 
 Try stopping the container and refresh the last page, it should not work anymore.
 
 ```
-docker stop web
+docker stop $(docker ps -a -q)
 ```
