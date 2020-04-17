@@ -46,21 +46,21 @@
 	"title": "Package &amp; Deploy Lambda using SAM",
 	"tags": [],
 	"description": "",
-	"content": " Create the S3 repo to store SAM artifact Since the S3 repo name must be unique globally, please postfix with your username. We\u0026rsquo;ll use this S3 bucket to store our built artifact.\naws s3api create-bucket --bucket serverless-lab-[change-to-your-username]  Upgrade SAM CLI to latest version This can take up to 2-3 minutes to install all required packages.\n./install-packages.sh  Package the template Don\u0026rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name created earlier.\nsam package --s3-bucket serverless-lab-[your-username] --s3-prefix lab -t s3-watcher/template.yaml --output-template-file built.yaml  Deploy Lambda using SAM This will take 1-2 minutes as SAM is creating CloudFormation stack. You will also see that there\u0026rsquo;s a new S3 bucket created by SAM: serverless-lab-lambda-s3-watcher-mys3bucket-[random-chars].\nsam deploy --template-file built.yaml --stack-name serverless-lab-lambda-s3-watcher --capabilities CAPABILITY_IAM  Add files to S3 Now when you add any file to the above S3 bucket, you will see that Lambda will get triggered.\n Go to S3 service. Select your bucket, should starts with: serverless-lab-lambda-s3-watcher-mys3bucket-[random-chars]. Select Upload and upload any random file.  Go to Lambda. Click on the Lambda function: serverless-lab-lambda-s3-SimpleS3ListenerFunction-[random-chars] Click on Monitoring. Click on View logs in CloudWatch.  At CloudWatch Logs, click on the latest Log Streams. You will see output looks like this:   Congrats! You are done with this lab.\n"
+	"content": " Create the S3 repo to store SAM artifact Since the S3 repo name must be unique globally, please postfix with your username. We\u0026rsquo;ll use this S3 bucket to store our built artifact.\naws s3api create-bucket --bucket serverless-lab-[change-to-your-username]  Upgrade SAM CLI to latest version This can take up to 2-3 minutes to install all required packages.\n./install-packages.sh  Package the template Don\u0026rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name created earlier.\nsam package --s3-bucket serverless-lab-[your-username] --s3-prefix lab -t s3-watcher/template.yaml --output-template-file built.yaml  Deploy Lambda using SAM This will take 1-2 minutes as SAM is creating CloudFormation stack. You will also see that there\u0026rsquo;s a new S3 bucket created by SAM: serverless-lab-lambda-s3-watcher-mys3bucket-[random-chars].\nsam deploy --template-file built.yaml --stack-name serverless-lab-lambda-s3-watcher --capabilities CAPABILITY_IAM  Add files to S3 Now when you add any file to the above S3 bucket, you will see that Lambda will get triggered.\n Go to S3 service. Select your bucket, should starts with: serverless-lab-lambda-s3-watcher-mys3bucket-[random-chars]. Select Upload and upload any random file.  Go to Lambda. Click on the Lambda function: serverless-lab-lambda-s3-SimpleS3ListenerFunction-[random-chars] Click on Monitoring. Click on View logs in CloudWatch.  At CloudWatch Logs, click on the latest Log Streams. You will see output looks like this:   Congrats! You are done with this lab (S3 file watcher).\n"
 },
 {
 	"uri": "/serverless/",
-	"title": "Serverless Lab",
+	"title": "Serverless Labs",
 	"tags": [],
 	"description": "",
-	"content": " Serverless Lab Overview In this lab, we\u0026rsquo;ll create simple Lambda function that watch for new files being uploaded to S3. We\u0026rsquo;ll deploy this Lambda using SAM.\n"
+	"content": " Serverless Labs Overview This section contains 2 labs:\n S3 file watcher - Lambda will get triggered when a new file get uploaded to S3. REST API - Create a simple REST API running serverlessly on Lambda and served by API Gateway.  "
 },
 {
 	"uri": "/containers/view-page/",
 	"title": "View the container content",
 	"tags": [],
 	"description": "",
-	"content": " Allow your laptop to access EC2 port 80  Go to EC2 / Instances Click on the one running instance Click on Security groups and Inbound / Edit. Allow port 80 to My IP and Save.  Go back to Cloud 9, get the EC2 Public IP curl 169.254.169.254/latest/meta-data/public-ipv4; echo  Open the IP in a new browser tab You should see a simple page being served by the container.\nStop the container Try stopping the container and refresh the last page, it should not work anymore.\ndocker stop $(docker ps -a -q)  "
+	"content": " Allow your laptop to access EC2 port 80  Go to EC2 / Instances Click on the one running instance Click on Security groups and Inbound / Edit. Allow port 80 to My IP and Save.  Restart the container to run on port 80 docker stop $(docker ps -a -q) \u0026amp;\u0026amp; docker run -p 80:80 web  Go back to Cloud 9, get the EC2 Public IP curl 169.254.169.254/latest/meta-data/public-ipv4; echo  Open the IP in a new browser tab You should see a simple page being served by the container.\nStop the container Try stopping the container and refresh the last page, it should not work anymore.\ndocker stop $(docker ps -a -q)  "
 },
 {
 	"uri": "/containers/ecr/",
@@ -75,6 +75,13 @@
 	"tags": [],
 	"description": "",
 	"content": " Go to ECS service Click on Get started button  Click on Configure button at the custom section. For the Image, open new browser tab and go to ECR and it\u0026rsquo;s under URI, then append :latest at the end of the URI.  At Step 2, leave everything default and click Next  At Step 3, leave everything default and click Next  At Step 4, review to make sure everything looks good, click Create  After about 3 minutes, all 9 steps will be completed. Click on View Service button   "
+},
+{
+	"uri": "/serverless/rest-api/",
+	"title": "REST API",
+	"tags": [],
+	"description": "",
+	"content": " Overview In this lab, we\u0026rsquo;ll deploy a very simple REST API running on Lambda and served by API Gateway.\nChange into the repo cd ~/environment/lambda-example/rest-api/  Package the template Don\u0026rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name created earlier.\nsam package --s3-bucket serverless-lab-[your-username] --s3-prefix lab --output-template-file built.yaml  Deploy Lambda using SAM This will take 1-2 minutes as SAM is creating CloudFormation stack.\nsam deploy --template-file built.yaml --stack-name serverless-lab-lambda-rest-api --capabilities CAPABILITY_IAM  Make request to the API Once deployed, you\u0026rsquo;ll see under the Outputs section there will be an url to API Gateway. You can make a request to that.\nThe API Gateway url will look something like this:\nhttp https://[your url here].execute-api.us-east-1.amazonaws.com/Prod/  Congrats! You are done with this lab. Please take sometime and view the source codes of the cloned repos to see how it was setup.\nChallenge: Try to change the output from the API, package and re-deploy the service.\n"
 },
 {
 	"uri": "/containers/view-ecs/",

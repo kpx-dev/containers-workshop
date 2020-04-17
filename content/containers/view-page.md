@@ -11,6 +11,11 @@ weight: 16
 
 ![sg](/images/sg-01.png)
 
+#### Restart the container to run on port 80
+```
+docker stop $(docker ps -a -q) && docker run -p 80:80 web
+```
+
 #### Go back to Cloud 9, get the EC2 Public IP
 ```
 curl 169.254.169.254/latest/meta-data/public-ipv4; echo

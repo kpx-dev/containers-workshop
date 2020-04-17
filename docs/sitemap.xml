@@ -47,6 +47,10 @@
   </url>
   
   <url>
+    <loc>/serverless/rest-api/</loc>
+  </url>
+  
+  <url>
     <loc>/containers/view-ecs/</loc>
   </url>
   

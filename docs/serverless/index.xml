@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Serverless Lab on Containers / Serverless Workshop</title>
+    <title>Serverless Labs on Containers / Serverless Workshop</title>
     <link>/serverless/</link>
-    <description>Recent content in Serverless Lab on Containers / Serverless Workshop</description>
+    <description>Recent content in Serverless Labs on Containers / Serverless Workshop</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
@@ -30,6 +30,18 @@
       <description>Create the S3 repo to store SAM artifact Since the S3 repo name must be unique globally, please postfix with your username. We&amp;rsquo;ll use this S3 bucket to store our built artifact.
 aws s3api create-bucket --bucket serverless-lab-[change-to-your-username]  Upgrade SAM CLI to latest version This can take up to 2-3 minutes to install all required packages.
 ./install-packages.sh  Package the template Don&amp;rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name created earlier.</description>
+    </item>
+    
+    <item>
+      <title>REST API</title>
+      <link>/serverless/rest-api/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/serverless/rest-api/</guid>
+      <description>Overview In this lab, we&amp;rsquo;ll deploy a very simple REST API running on Lambda and served by API Gateway.
+Change into the repo cd ~/environment/lambda-example/rest-api/  Package the template Don&amp;rsquo;t forget to replace serverless-lab-[your-username] with your actual S3 bucket name created earlier.
+sam package --s3-bucket serverless-lab-[your-username] --s3-prefix lab --output-template-file built.yaml  Deploy Lambda using SAM This will take 1-2 minutes as SAM is creating CloudFormation stack.
+sam deploy --template-file built.</description>
     </item>
     
   </channel>

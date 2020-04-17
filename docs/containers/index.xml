@@ -38,7 +38,7 @@ admin:~/environment/docker-example (master) $ docker build -t web . Sending buil
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/containers/view-page/</guid>
-      <description>Allow your laptop to access EC2 port 80  Go to EC2 / Instances Click on the one running instance Click on Security groups and Inbound / Edit. Allow port 80 to My IP and Save.  Go back to Cloud 9, get the EC2 Public IP curl 169.254.169.254/latest/meta-data/public-ipv4; echo  Open the IP in a new browser tab You should see a simple page being served by the container.</description>
+      <description>Allow your laptop to access EC2 port 80  Go to EC2 / Instances Click on the one running instance Click on Security groups and Inbound / Edit. Allow port 80 to My IP and Save.  Restart the container to run on port 80 docker stop $(docker ps -a -q) &amp;amp;&amp;amp; docker run -p 80:80 web  Go back to Cloud 9, get the EC2 Public IP curl 169.</description>
     </item>
     
     <item>
