@@ -4,7 +4,7 @@
 	"title": "Serverless Workshop",
 	"tags": [],
 	"description": "",
-	"content": "Welcome to Containers / Serverless Workshop We\u0026rsquo;ll learn about AWS Containers and Serverless offering.\nClick on labs on the left to get started.\n"
+	"content": "Welcome to Containers / Serverless Workshop We\u0026rsquo;ll learn about AWS Containers and Serverless offering.\nLet\u0026rsquo;s get started by setting up Cloud9 IDE environment.\n"
 },
 {
 	"uri": "/cloud9/",
