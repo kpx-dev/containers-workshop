@@ -21,6 +21,6 @@
     "@fortawesome/fontawesome-free": "^5.12.1",
     "hugo-cli": "^0.11.0",
     "hugo-lunr": "0.0.4",
-    "mermaid": "^8.4.8"
+    "mermaid": "^8.11.0"
   }
 }
